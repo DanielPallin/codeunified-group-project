@@ -53,3 +53,4 @@ This will automatically start:
 ## Code Standards & Conventions
 * **Language:** ALL source code (variables, functions, classes, comments, file names) MUST be written in **English**.
 * **Type Safety:** Always define explicit interfaces/types for data structures in TypeScript.
+* **Git Standards:** Please use dev-branch first hand so we simply can review and fix problems before we merge.
