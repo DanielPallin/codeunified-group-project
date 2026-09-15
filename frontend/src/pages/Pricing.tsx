@@ -37,6 +37,7 @@ const Pricing = () => {
             <h2>{plan.name}</h2>
             <p>Pris: {plan.price} kr</p>
             <p>{plan.description}</p>
+            <button>Välj {plan.name}</button>
           </li>
         ))}
       </ul>
