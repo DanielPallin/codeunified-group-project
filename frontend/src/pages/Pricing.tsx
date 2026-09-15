@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Plan } from "../types/plan.js";
+import PlanCard from "../components/PlanCard.js";
 
 const Pricing = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -31,16 +32,11 @@ const Pricing = () => {
       <h1>Priser</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <ul>
-        {plans.map((plan) => (
-          <li key={plan.id}>
-            <h2>{plan.name}</h2>
-            <p>Pris: {plan.price} kr</p>
-            <p>{plan.description}</p>
-            <button>Välj {plan.name}</button>
-          </li>
-        ))}
-      </ul>
+      <h2>Välj din plan</h2>
+
+      {plans.map((plan) => (
+        <PlanCard key={plan.id} plan={plan} />
+      ))}
     </div>
   );
 };
