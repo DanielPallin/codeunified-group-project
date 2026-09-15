@@ -6,6 +6,7 @@ const PlanCard = ({ plan }: { plan: Plan }) => {
       <h3>{plan.name}</h3>
       <p>{plan.price} kr</p>
       <p>{plan.description}</p>
+      <button>Välj {plan.name}</button>
     </div>
   );
 };
