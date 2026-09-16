@@ -13,11 +13,15 @@ const Pricing = () => {
         setLoading(true);
         setError(null);
         const response = await fetch("http://localhost:3000/api/plans");
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
         const data = await response.json();
         setPlans(data);
-        console.log("Fetched plans:", data);
       } catch (error) {
-        console.error("Error fetching plans:", error);
+        console.error(error);
         setError("Failed to fetch plans");
       } finally {
         setLoading(false);
@@ -29,10 +33,10 @@ const Pricing = () => {
 
   return (
     <div>
-      <h1>Priser</h1>
+      <h1>Pricing</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <h2>Välj din plan</h2>
+      <h2>Choose your plan</h2>
 
       {plans.map((plan) => (
         <PlanCard key={plan.id} plan={plan} />

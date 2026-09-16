@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Pricing from "./pages/Pricing";
 import Header from "./components/Header";
+import Courses from "./pages/Courses";
+import CoursePage from "./pages/CoursePage";
+
 
 function App() {
   return (
@@ -9,6 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<h1>Welcome to the App</h1>} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:slug" element={ <CoursePage />} />
       </Routes>
     </BrowserRouter>
   );

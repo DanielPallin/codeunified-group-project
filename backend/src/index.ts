@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import pool from "./db.js";
 import planRoutes from "./routes/planRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
 
 const app = express();
 const port = 3000;
@@ -13,7 +14,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Project API is running!");
 });
-
+app.use("/api/courses", courseRoutes);
 app.use("/api/plans", planRoutes);
 
 app.listen(port, () => {
