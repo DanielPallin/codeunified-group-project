@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/plans", planRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
