@@ -1,26 +1,40 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { Course } from "../types/course";
+import type { Lesson } from "../types/lesson";
+import "./CoursePage.css";
+import LessonCard from "../components/LessonCard";
 
 const CoursePage = () => {
   const { slug } = useParams();
   const [course, setCourse] = useState<Course | null>(null);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchCourse = async () => {
+    const fetchCourseWithLessons = async () => {
       try {
         setLoading(true);
         setError(null);
 
+        const lessonsResponse = await fetch(
+          `http://localhost:3000/api/courses/${slug}/lessons`,
+        );
         const response = await fetch(
           `http://localhost:3000/api/courses/${slug}`,
         );
 
+        if (!lessonsResponse.ok) {
+          throw new Error("Failed to fetch lessons");
+        }
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
+
+        const lessonsData = await lessonsResponse.json();
+        setLessons(lessonsData);
+        console.log("Fetched lessons:", lessonsData);
 
         const data = await response.json();
         setCourse(data);
@@ -32,7 +46,7 @@ const CoursePage = () => {
       }
     };
 
-    fetchCourse();
+    fetchCourseWithLessons();
   }, [slug]);
 
   if (loading) {
@@ -48,9 +62,15 @@ const CoursePage = () => {
   }
 
   return (
-    <div>
+    <div className="course-page">
       <h1>{course.name}</h1>
       <p>{course.description}</p>
+
+      <h2>Lessons</h2>
+
+      {lessons.map((lesson) => (
+       <LessonCard key={lesson.id} lesson={lesson} />
+      ))}
     </div>
   );
 };
