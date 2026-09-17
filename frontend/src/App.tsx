@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import Courses from "./pages/Courses";
 import CoursePage from "./pages/CoursePage";
+import { AdminDashboard } from './pages/AdminDashboard';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:slug" element={ <CoursePage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );
