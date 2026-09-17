@@ -51,7 +51,7 @@ export const createLesson = async (req: Request, res: Response): Promise<any> =>
             return res.status(403).json({ error: 'Access denied: Admin privileges required' });
         }
 
-        const { course_id, lesson_title, lesson_slug, content_body, sequence_order } = req.body;
+        const { course_id, lesson_title, lesson_slug, content_body, sequence_order, media_url } = req.body;
 
         if (!course_id || !lesson_title || !lesson_slug) {
             return res.status(400).json({ error: 'Missing required lesson fields' });
@@ -59,8 +59,8 @@ export const createLesson = async (req: Request, res: Response): Promise<any> =>
 
         const lessonId = uuidv4();
         const query = `
-            INSERT INTO lessons (lesson_id, course_id, lesson_title, lesson_slug, content_body, sequence_order, status)
-            VALUES ($1, $2, $3, $4, $5, $6, 'published')
+            INSERT INTO lessons (lesson_id, course_id, lesson_title, lesson_slug, content_body, sequence_order, status, media_url)
+            VALUES ($1, $2, $3, $4, $5, $6, 'published', $7)
             RETURNING lesson_id, lesson_title;
         `;
         
@@ -69,7 +69,8 @@ export const createLesson = async (req: Request, res: Response): Promise<any> =>
             course_id, 
             lesson_title, 
             lesson_slug, 
-            content_body, 
+            content_body,
+            media_url || null, 
             sequence_order || 1
         ]);
 

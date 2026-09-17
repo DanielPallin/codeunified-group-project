@@ -34,6 +34,7 @@ export const AdminDashboard = () => {
     const [lessonSlug, setLessonSlug] = useState('');
     const [lessonContent, setLessonContent] = useState('');
     const [lessonSequence, setLessonSequence] = useState(1);
+    const [lessonMediaUrl, setLessonMediaUrl] = useState('');
     const [lessonStatus, setLessonStatus] = useState('');
 
     const fetchAdminData = async () => {
@@ -88,7 +89,8 @@ export const AdminDashboard = () => {
                     course_title: courseTitle,
                     course_slug: courseSlug,
                     course_description: courseDescription,
-                    min_access_level: minAccessLevel
+                    min_access_level: minAccessLevel,
+                    media_url: lessonMediaUrl
                 })
             });
 
@@ -97,6 +99,8 @@ export const AdminDashboard = () => {
                 setCourseTitle('');
                 setCourseSlug('');
                 setCourseDescription('');
+                setLessonContent('');
+                setLessonMediaUrl('');
                 setMinAccessLevel(1);
                 setRefreshTrigger(prev => prev + 1);
             } else {
@@ -202,6 +206,7 @@ export const AdminDashboard = () => {
                             <label style={{ display: 'block', marginBottom: '5px' }}>Required Access Level (1-3)</label>
                             <input type="number" min="1" max="3" value={minAccessLevel} onChange={(e) => setMinAccessLevel(Number(e.target.value))} required style={{ width: '100%', padding: '8px' }} />
                         </div>
+                        <div>1=Basic 2=Plus 3=Pro</div>
                         <button type="submit" style={{ padding: '10px', backgroundColor: '#333', color: 'white', border: 'none', cursor: 'pointer' }}>Publish Course</button>
                     </form>
                     {courseStatus && <div style={{ marginTop: '15px', padding: '10px', backgroundColor: '#eef2f5', borderRadius: '4px' }}><strong>{courseStatus}</strong></div>}
@@ -235,6 +240,16 @@ export const AdminDashboard = () => {
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Content Body</label>
                             <textarea value={lessonContent} onChange={(e) => setLessonContent(e.target.value)} required rows={3} style={{ width: '100%', padding: '8px' }} />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '5px' }}>Media URL (Video/Image Link - Optional)</label>
+                            <input 
+                                type="text" 
+                                value={lessonMediaUrl} 
+                                onChange={(e) => setLessonMediaUrl(e.target.value)} 
+                                placeholder="https://..."
+                                style={{ width: '100%', padding: '8px' }} 
+                            />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Sequence Order</label>
