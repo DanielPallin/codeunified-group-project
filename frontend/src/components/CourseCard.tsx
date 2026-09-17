@@ -1,5 +1,6 @@
 import type { Course } from "../types/course";
 import { Link } from "react-router-dom";
+import "./CourseCard.css";
 
 const CourseCard = ({ course }: { course: Course }) => {
   return (

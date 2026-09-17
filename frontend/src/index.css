@@ -1,0 +1,34 @@
+:root {
+  --bg-primary: #070915;
+  --bg-secondary: #0A0C18;
+
+  --card-bg: #141720;
+  --card-border: #252936;
+
+  --accent: #0FC0AE;
+
+  --text-primary: #F5F5F5;
+  --text-secondary: #9EA3B3;
+  --text-muted: #737988;
+} 
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
