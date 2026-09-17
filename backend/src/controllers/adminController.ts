@@ -79,3 +79,84 @@ export const createLesson = async (req: Request, res: Response): Promise<any> =>
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+export const getCourses = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const isAdmin = await verifyAdminRole(MOCK_ADMIN_ID);
+        if (!isAdmin) {
+            return res.status(403).json({ error: 'Access denied: Admin privileges required' });
+        }
+
+        const result = await pool.query('SELECT * FROM courses ORDER BY created_at DESC');
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error fetching courses:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+export const getLessons = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const isAdmin = await verifyAdminRole(MOCK_ADMIN_ID);
+        if (!isAdmin) {
+            return res.status(403).json({ error: 'Access denied: Admin privileges required' });
+        }
+
+        const query = `
+            SELECT l.*, c.course_title 
+            FROM lessons l 
+            JOIN courses c ON l.course_id = c.course_id 
+            ORDER BY c.course_title ASC, l.sequence_order ASC
+        `;
+        const result = await pool.query(query);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error fetching lessons:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+export const deleteCourse = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const isAdmin = await verifyAdminRole(MOCK_ADMIN_ID);
+        if (!isAdmin) {
+            return res.status(403).json({ error: 'Access denied: Admin privileges required' });
+        }
+
+        const { id } = req.params;
+
+        await pool.query('DELETE FROM lessons WHERE course_id = $1', [id]);
+        
+        const result = await pool.query('DELETE FROM courses WHERE course_id = $1 RETURNING course_id', [id]);
+        
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+
+        res.status(200).json({ message: 'Course and related lessons deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting course:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+export const deleteLesson = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const isAdmin = await verifyAdminRole(MOCK_ADMIN_ID);
+        if (!isAdmin) {
+            return res.status(403).json({ error: 'Access denied: Admin privileges required' });
+        }
+
+        const { id } = req.params;
+        const result = await pool.query('DELETE FROM lessons WHERE lesson_id = $1 RETURNING lesson_id', [id]);
+        
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: 'Lesson not found' });
+        }
+
+        res.status(200).json({ message: 'Lesson deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting lesson:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
