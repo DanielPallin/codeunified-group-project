@@ -1,4 +1,5 @@
 import type { Plan } from "../types/plan.js";
+import "./PlanCard.css";
 
 const PlanCard = ({ plan }: { plan: Plan }) => {
   return (

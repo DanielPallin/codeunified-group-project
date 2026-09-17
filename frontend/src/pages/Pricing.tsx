@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Plan } from "../types/plan.js";
 import PlanCard from "../components/PlanCard.js";
+import "./Pricing.css";
 
 const Pricing = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -32,7 +33,7 @@ const Pricing = () => {
   }, []);
 
   return (
-    <div>
+    <div className="pricing-page">
       <h1>Pricing</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}

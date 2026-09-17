@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Course } from "../types/course";
 import CourseCard from "../components/CourseCard";
+import "./Courses.css";
 
 const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -32,11 +33,11 @@ const Courses = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Courses</h1>
+    <div className="courses-page">
+      <h1 className="courses-page-title">Courses</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <h2>Choose your course</h2>
+      <h2 className="courses-selection-title">Choose your course</h2>
 
       {courses.map((course) => (
         <CourseCard key={course.id} course={course} />
