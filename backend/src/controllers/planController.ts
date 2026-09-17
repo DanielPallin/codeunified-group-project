@@ -5,7 +5,7 @@ import type { Plan } from "../types/plan.js";
 export const getPlans = async (req: Request, res: Response) => {
   try {
     const result = await pool.query<Plan>(
-      "SELECT id, name, price, description FROM plans ORDER BY id"
+      "SELECT plan_id as id, name, price, currency, billing_interval, is_active, description FROM plans ORDER BY access_level ASC"
     );
 
     res.json(result.rows);

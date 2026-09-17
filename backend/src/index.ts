@@ -5,6 +5,7 @@ import pool from "./db.js";
 import planRoutes from "./routes/planRoutes.js";
 import dashboardRoutes from './routes/dashboardRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import courseRoutes from "./routes/courseRoutes.js";
 
 const app = express();
 const port = 3000;
@@ -15,7 +16,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Project API is running!");
 });
-
+app.use("/api/courses", courseRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/payments", paymentRoutes);

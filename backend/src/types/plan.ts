@@ -1,6 +1,10 @@
 export type Plan = {
-  id: number;
+  id: string;
   name: string;
-  price: number;
   description: string;
+  access_level: number;
+  price: number;
+  currency: string;
+  billing_interval: string;
+  is_active: boolean;
 };
