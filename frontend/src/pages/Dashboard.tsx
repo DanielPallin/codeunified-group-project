@@ -30,24 +30,32 @@ export default function Dashboard() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
+   useEffect(() => {
         const fetchDashboardData = async () => {
             try {
                 const planRes = await fetch('http://localhost:3000/api/dashboard/plan');
                 const coursesRes = await fetch('http://localhost:3000/api/dashboard/courses');
                 const receiptsRes = await fetch('http://localhost:3000/api/dashboard/receipts');
 
-                if (!planRes.ok || !coursesRes.ok || !receiptsRes.ok) {
-                    throw new Error('Failed to fetch dashboard data');
+                if (planRes.ok) {
+                    const planData = await planRes.json();
+                    setPlan(planData);
+                } else if (planRes.status === 404) {
+                    setPlan(null);
+                } else {
+                    throw new Error('Backend error when fetching plan');
                 }
 
-                const planData = await planRes.json();
+                if (!coursesRes.ok || !receiptsRes.ok) {
+                    throw new Error('Failed to fetch courses or receipts');
+                }
+
                 const coursesData = await coursesRes.json();
                 const receiptsData = await receiptsRes.json();
 
-                setPlan(planData);
                 setCourses(coursesData);
                 setReceipts(receiptsData);
+                
             } catch (err) {
                 console.error('Fetch error:', err);
                 setError('Could not load dashboard data at this time.');

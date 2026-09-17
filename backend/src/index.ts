@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import pool from "./db.js";
 import planRoutes from "./routes/planRoutes.js";
+import dashboardRoutes from './routes/dashboardRoutes.js';
 
 const app = express();
 const port = 3000;
