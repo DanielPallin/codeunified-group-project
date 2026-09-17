@@ -9,9 +9,10 @@ export const getCourses = async (req: Request, res: Response) => {
         course_id as id,
         course_title as name,
         course_slug AS slug,
-        course_description as description
+        course_description as description,
+        min_access_level
         FROM courses 
-        ORDER BY course_title ASC`,
+        ORDER BY min_access_level ASC`,
     );
 
     res.json(result.rows);
@@ -33,7 +34,8 @@ export const getCourseBySlug = async (req: Request, res: Response) => {
         course_id AS id,
         course_title AS name,
         course_slug AS slug,
-        course_description AS description
+        course_description AS description,
+        min_access_level
        FROM courses
        WHERE course_slug = $1`,
       [slug],
