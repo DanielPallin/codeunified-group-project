@@ -34,10 +34,9 @@ const Pricing = () => {
 
   return (
     <div className="pricing-page">
-      <h1>Pricing</h1>
+      <h1>Choose Your Plan</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <h2>Choose your plan</h2>
 
       {plans.map((plan) => (
         <PlanCard key={plan.id} plan={plan} />

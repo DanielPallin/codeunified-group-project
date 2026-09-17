@@ -34,9 +34,9 @@ const Courses = () => {
 
   return (
     <div className="courses-page">
+      <h1 className="courses-selection-title">Choose Your Course</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <h1 className="courses-selection-title">Choose your course</h1>
 
       <section>
         <h3 className="courses-section-title">Basic</h3>
