@@ -5,3 +5,6 @@
   padding: 1rem;
 }
 
+.courses-section-title {
+  color: var(--accent);
+}
