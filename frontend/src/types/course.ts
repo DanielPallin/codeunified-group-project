@@ -3,4 +3,5 @@ export type Course = {
   name: string;
   slug: string;
   description: string;
+  min_access_level: number;
 };

@@ -1,28 +1,39 @@
 :root {
   --bg-primary: #070915;
-  --bg-secondary: #0A0C18;
+  --bg-secondary: #0a0c18;
 
   --card-bg: #141720;
   --card-border: #252936;
 
-  --accent: #0FC0AE;
+  --accent: #0fc0ae;
 
-  --text-primary: #F5F5F5;
-  --text-secondary: #9EA3B3;
+  --text-primary: #f5f5f5;
+  --text-secondary: #9ea3b3;
   --text-muted: #737988;
-} 
+}
 
 html,
 body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-primary);
-  color: var(--text-primary);
   font-family: Arial, sans-serif;
 }
 
+p,
+h3,
+td,
+th {
+  color: var(--text-primary);
+}
+
+h1,
+h2 {
+  color: var(--accent);
+}
+
 a {
-  color: inherit;
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -31,4 +42,6 @@ input,
 textarea,
 select {
   font: inherit;
+  background-color: var(--accent);
+  border: none;
 }

@@ -1,10 +1,6 @@
-.courses-page {
+.course-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-}
-
-.courses-section-title {
-  color: var(--accent);
 }

@@ -34,14 +34,39 @@ const Courses = () => {
 
   return (
     <div className="courses-page">
-      <h1 className="courses-page-title">Courses</h1>
+      <h1 className="courses-selection-title">Choose Your Course</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <h2 className="courses-selection-title">Choose your course</h2>
 
-      {courses.map((course) => (
-        <CourseCard key={course.id} course={course} />
-      ))}
+      <section>
+        <h3 className="courses-section-title">Basic</h3>
+
+        {courses
+          .filter((course) => course.min_access_level === 1)
+          .map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+      </section>
+
+      <section>
+        <h3 className="courses-section-title">Plus</h3>
+
+        {courses
+          .filter((course) => course.min_access_level === 2)
+          .map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+      </section>
+
+      <section>
+        <h3 className="courses-section-title">Pro</h3>
+
+        {courses
+          .filter((course) => course.min_access_level === 3)
+          .map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+      </section>
     </div>
   );
 };

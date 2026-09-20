@@ -10,6 +10,7 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import lessonRoutes from "./routes/courseRoutes.js";
 
 const app = express();
 const port = 3000;
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/courses", courseRoutes);
 app.use("/api/plans", planRoutes);
+app.use("/api/lessons", lessonRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
