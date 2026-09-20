@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import pool from "../db.js";
 
@@ -15,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
 
     const existingUser = await pool.query(
       "SELECT user_id FROM users WHERE email = $1 AND deleted_at IS NULL",
-      [email]
+      [email],
     );
 
     if (existingUser.rows.length > 0) {
@@ -32,15 +33,7 @@ export const register = async (req: Request, res: Response) => {
         (user_id, firstname, lastname, username, email, password_hash, role)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING user_id, firstname, lastname, username, email, role, created_at`,
-      [
-        userId,
-        firstname,
-        lastname,
-        username,
-        email,
-        passwordHash,
-        "user",
-      ]
+      [userId, firstname, lastname, username, email, passwordHash, "user"],
     );
 
     return res.status(201).json({
@@ -78,7 +71,7 @@ export const login = async (req: Request, res: Response) => {
        FROM users
        WHERE email = $1
        AND deleted_at IS NULL`,
-      [email]
+      [email],
     );
 
     if (result.rows.length === 0) {
@@ -89,10 +82,7 @@ export const login = async (req: Request, res: Response) => {
 
     const user = result.rows[0];
 
-    const passwordMatches = await bcrypt.compare(
-      password,
-      user.password_hash
-    );
+    const passwordMatches = await bcrypt.compare(password, user.password_hash);
 
     if (!passwordMatches) {
       return res.status(401).json({
@@ -100,8 +90,30 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      console.error("JWT_SECRET is missing");
+
+      return res.status(500).json({
+        message: "Server authentication configuration error",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        userId: user.user_id,
+        role: user.role,
+      },
+      jwtSecret,
+      {
+        expiresIn: "1h",
+      },
+    );
+
     return res.status(200).json({
       message: "Login successful",
+      token,
       user: {
         user_id: user.user_id,
         firstname: user.firstname,

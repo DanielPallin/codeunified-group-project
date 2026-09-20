@@ -1,13 +1,53 @@
 header {
   padding: 1rem 2rem;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--card-border);
 }
 
 nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 nav div {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+nav button {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+nav button:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 1rem;
+  }
+
+  nav div {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 }

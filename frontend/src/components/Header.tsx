@@ -1,7 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  const isLoggedIn = Boolean(token);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <header>
@@ -12,8 +24,17 @@ const Header = () => {
           <Link to="/quiz">Quiz</Link>
           <Link to="/pricing">Pricing</Link>
           <Link to="/dashboard">Dashboard</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+
+          {isLoggedIn ? (
+            <button type="button" onClick={handleLogout}>
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>
+          )}
         </div>
       </nav>
     </header>
