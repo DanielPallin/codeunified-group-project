@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './Dashboard.css';
 
 interface Plan {
     name: string;
@@ -30,12 +31,18 @@ export default function Dashboard() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-   useEffect(() => {
+    useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                const planRes = await fetch('http://localhost:3000/api/dashboard/plan');
-                const coursesRes = await fetch('http://localhost:3000/api/dashboard/courses');
-                const receiptsRes = await fetch('http://localhost:3000/api/dashboard/receipts');
+                const token = localStorage.getItem('token');
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                };
+
+                const planRes = await fetch('http://localhost:3000/api/dashboard/plan', { headers });
+                const coursesRes = await fetch('http://localhost:3000/api/dashboard/courses', { headers });
+                const receiptsRes = await fetch('http://localhost:3000/api/dashboard/receipts', { headers });
 
                 if (planRes.ok) {
                     const planData = await planRes.json();
@@ -68,13 +75,13 @@ export default function Dashboard() {
     }, []);
 
     if (isLoading) return <div>Loading dashboard...</div>;
-    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+    if (error) return <div className="error-text">{error}</div>;
 
     return (
-        <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+        <div className="dashboard-container">
             <h1>My Dashboard</h1>
 
-            <section style={{ marginBottom: '40px', padding: '20px', border: '1px solid #ccc' }}>
+            <section className="dashboard-section">
                 <h2>Current Plan</h2>
                 {plan ? (
                     <div>
@@ -88,12 +95,12 @@ export default function Dashboard() {
                 )}
             </section>
 
-            <section style={{ marginBottom: '40px' }}>
+            <section className="dashboard-section">
                 <h2>My Courses</h2>
                 {courses.length > 0 ? (
-                    <ul style={{ listStyleType: 'none', padding: 0 }}>
+                    <ul className="course-list">
                         {courses.map((course) => (
-                            <li key={course.course_id} style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
+                            <li key={course.course_id} className="course-item">
                                 <h4>{course.course_title}</h4>
                                 <p>{course.course_description}</p>
                             </li>
@@ -104,12 +111,12 @@ export default function Dashboard() {
                 )}
             </section>
 
-            <section>
+            <section className="dashboard-section">
                 <h2>Receipts</h2>
                 {receipts.length > 0 ? (
-                    <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+                    <table className="receipts-table">
                         <thead>
-                            <tr style={{ borderBottom: '2px solid #333' }}>
+                            <tr>
                                 <th>Date</th>
                                 <th>Plan</th>
                                 <th>Amount</th>
@@ -118,11 +125,11 @@ export default function Dashboard() {
                         </thead>
                         <tbody>
                             {receipts.map((receipt) => (
-                                <tr key={receipt.payment_id} style={{ borderBottom: '1px solid #eee' }}>
+                                <tr key={receipt.payment_id}>
                                     <td>{new Date(receipt.created_at).toLocaleDateString()}</td>
                                     <td>{receipt.plan_name}</td>
                                     <td>{receipt.amount_paid} {receipt.currency}</td>
-                                    <td style={{ fontSize: '0.8em', color: '#666' }}>{receipt.payment_id}</td>
+                                    <td className="receipt-id">{receipt.payment_id}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -133,4 +140,4 @@ export default function Dashboard() {
             </section>
         </div>
     );
-};
+}

@@ -1,11 +1,9 @@
 import type { Request, Response } from 'express';
 import pool from "../db.js";
 
-const MOCK_USER_ID = '123e4567-e89b-12d3-a456-426614174000';
-
-export const getCurrentPlan = async (req: Request, res: Response) => {
+export const getCurrentPlan = async (req: Request, res: Response): Promise<any> => {
     try {
-        const userId = MOCK_USER_ID; 
+        const userId = (req as any).user?.userId;
 
         const query = `
             SELECT p.name, p.description, p.access_level, s.status, s.current_period_end
@@ -27,9 +25,9 @@ export const getCurrentPlan = async (req: Request, res: Response) => {
     }
 };
 
-export const getReceipts = async (req: Request, res: Response) => {
+export const getReceipts = async (req: Request, res: Response): Promise<any> => {
     try {
-        const userId = MOCK_USER_ID;
+        const userId = (req as any).user?.userId;
 
         const query = `
             SELECT pay.payment_id, pay.amount_paid, pay.currency, pay.status, pay.created_at, p.name AS plan_name
@@ -49,9 +47,9 @@ export const getReceipts = async (req: Request, res: Response) => {
     }
 };
 
-export const getMyCourses = async (req: Request, res: Response) => {
+export const getMyCourses = async (req: Request, res: Response): Promise<any> => {
     try {
-        const userId = MOCK_USER_ID;
+        const userId = (req as any).user?.userId;
 
         const query = `
             SELECT DISTINCT c.course_id, c.course_title, c.course_slug, c.course_description
