@@ -31,6 +31,8 @@ export default function Dashboard() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const [activeDrawer, setActiveDrawer] = useState<'none' | 'courses' | 'receipts'>('none');
+
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
@@ -77,6 +79,8 @@ export default function Dashboard() {
     if (isLoading) return <div>Loading dashboard...</div>;
     if (error) return <div className="error-text">{error}</div>;
 
+    const closeDrawer = () => setActiveDrawer('none');
+
     return (
         <div className="dashboard-container">
             <h1>My Dashboard</h1>
@@ -95,49 +99,79 @@ export default function Dashboard() {
                 )}
             </section>
 
-            <section className="dashboard-section">
-                <h2>My Courses</h2>
-                {courses.length > 0 ? (
-                    <ul className="course-list">
-                        {courses.map((course) => (
-                            <li key={course.course_id} className="course-item">
-                                <h4>{course.course_title}</h4>
-                                <p>{course.course_description}</p>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>You have not started any courses yet.</p>
-                )}
-            </section>
+            <div style={{ display: 'flex', gap: '20px' }}>
+                <section className="dashboard-section" style={{ flex: 1, marginBottom: 0 }}>
+                    <h2>My Courses</h2>
+                    <p>{courses.length} active courses.</p>
+                    <button className="open-drawer-btn" onClick={() => setActiveDrawer('courses')}>
+                        View My Courses
+                    </button>
+                </section>
 
-            <section className="dashboard-section">
-                <h2>Receipts</h2>
-                {receipts.length > 0 ? (
-                    <table className="receipts-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Plan</th>
-                                <th>Amount</th>
-                                <th>Receipt ID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {receipts.map((receipt) => (
-                                <tr key={receipt.payment_id}>
-                                    <td>{new Date(receipt.created_at).toLocaleDateString()}</td>
-                                    <td>{receipt.plan_name}</td>
-                                    <td>{receipt.amount_paid} {receipt.currency}</td>
-                                    <td className="receipt-id">{receipt.payment_id}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <p>No payment history available.</p>
+                <section className="dashboard-section" style={{ flex: 1, marginBottom: 0 }}>
+                    <h2>Receipts</h2>
+                    <p>{receipts.length} previous payments.</p>
+                    <button className="open-drawer-btn" onClick={() => setActiveDrawer('receipts')}>
+                        View Payment History
+                    </button>
+                </section>
+            </div>
+
+            <div 
+                className={`drawer-overlay ${activeDrawer !== 'none' ? 'open' : ''}`} 
+                onClick={closeDrawer}
+            />
+
+            <div className={`drawer ${activeDrawer !== 'none' ? 'open' : ''}`}>
+                <div className="drawer-header">
+                    <h2>{activeDrawer === 'courses' ? 'My Courses' : 'Receipts'}</h2>
+                    <button className="drawer-close-btn" onClick={closeDrawer}>✕</button>
+                </div>
+
+                {activeDrawer === 'courses' && (
+                    <div>
+                        {courses.length > 0 ? (
+                            <ul className="course-list">
+                                {courses.map((course) => (
+                                    <li key={course.course_id} className="course-item">
+                                        <h4>{course.course_title}</h4>
+                                        <p>{course.course_description}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>You have not started any courses yet.</p>
+                        )}
+                    </div>
                 )}
-            </section>
+
+                {activeDrawer === 'receipts' && (
+                    <div>
+                        {receipts.length > 0 ? (
+                            <table className="receipts-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Plan</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {receipts.map((receipt) => (
+                                        <tr key={receipt.payment_id}>
+                                            <td>{new Date(receipt.created_at).toLocaleDateString()}</td>
+                                            <td>{receipt.plan_name}</td>
+                                            <td>{receipt.amount_paid} {receipt.currency}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p>No payment history available.</p>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
