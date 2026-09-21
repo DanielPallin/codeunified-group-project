@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import type { Plan } from "../types/plan.js";
 import "./PlanCard.css";
 
 const PlanCard = ({ plan }: { plan: Plan }) => {
+  const navigate = useNavigate();
   const handleCheckout = async () => {
     const token = localStorage.getItem("token");
 
@@ -21,13 +23,14 @@ const PlanCard = ({ plan }: { plan: Plan }) => {
         },
       );
 
-      if (!response.ok) {
-        throw new Error("Checkout failed");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Payment successful", data);
+        navigate("/dashboard");
+      } else {
+        console.error("Payment failed with status:", response.status);
+        navigate("/login");
       }
-
-      const data = await response.json();
-
-      console.log("Receipt:", data);
     } catch (error) {
       console.error(error);
     }
