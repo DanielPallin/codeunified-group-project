@@ -91,3 +91,83 @@ select {
 .error-text {
   color: #ff4c4c;
 }
+
+/* Drawer */
+
+/* --- Drawer Overlay --- */
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Drawer Panel --- */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 100%;
+  max-width: 450px;
+  height: 100vh;
+  background-color: var(--bg-secondary);
+  border-left: 1px solid var(--card-border);
+  z-index: 1000;
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+}
+
+.drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.drawer-close-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.drawer-close-btn:hover {
+  color: var(--text-primary);
+}
+
+.open-drawer-btn {
+  padding: 10px 15px;
+  background-color: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.open-drawer-btn:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
