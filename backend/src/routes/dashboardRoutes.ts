@@ -5,12 +5,14 @@ import {
     getMyCourses 
 } from '../controllers/dashboardController.js';
 
+import { authenticateUser } from '../middleware/authMiddleware.js';
+
 const router = Router();
 
-router.get('/plan', getCurrentPlan);
+router.get('/plan', authenticateUser,getCurrentPlan);
 
-router.get('/receipts', getReceipts);
+router.get('/receipts', authenticateUser,getReceipts);
 
-router.get('/courses', getMyCourses);
+router.get('/courses', authenticateUser, getMyCourses);
 
 export default router;
