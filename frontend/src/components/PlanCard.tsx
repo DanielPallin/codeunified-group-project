@@ -3,6 +3,8 @@ import "./PlanCard.css";
 
 const PlanCard = ({ plan }: { plan: Plan }) => {
   const handleCheckout = async () => {
+    const token = localStorage.getItem("token");
+
     try {
       const response = await fetch(
         "http://localhost:3000/api/payments/checkout",
@@ -10,6 +12,7 @@ const PlanCard = ({ plan }: { plan: Plan }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
 
           body: JSON.stringify({
