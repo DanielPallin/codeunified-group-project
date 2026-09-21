@@ -4,12 +4,12 @@ import "./CourseCard.css";
 
 const CourseCard = ({ course }: { course: Course }) => {
   return (
-    <div className="course-card">
-      <h3>{course.name}</h3>
-      <p className="course-description">{course.description}</p>
- 
-      <Link to={`/courses/${course.slug}`}>View course</Link>
-    </div>
+    <Link to={`/courses/${course.slug}`}>
+      <div className="course-card">
+        <h3>{course.name}</h3>
+        <p className="course-description">{course.description}</p>
+      </div>
+    </Link>
   );
 };
 
