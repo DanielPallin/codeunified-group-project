@@ -53,7 +53,7 @@ const Pricing = () => {
 
   return (
     <div className="pricing-page">
-      <h1>Choose Your Plan</h1>
+      <h1 className="pricing-page-title">Choose Your Plan</h1>
       {error && <p>{error}</p>}
 
       {plans.map((plan) => (

@@ -37,7 +37,7 @@ const PlanCard = ({ plan }: { plan: Plan }) => {
   };
   return (
     <div className="plan-card">
-      <h3>{plan.name}</h3>
+      <h3 className="plan-card-title">{plan.name}</h3>
       <p>
         {plan.price} {plan.currency} / {plan.billing_interval}
       </p>

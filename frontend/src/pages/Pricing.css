@@ -4,6 +4,11 @@
   align-items: center;
   padding: 1rem;
   min-height: 100vh;
+  margin-top: 2rem;
+}
+
+.pricing-page-title {
+  margin-bottom: 4rem;
 }
 
 .loader-container {
