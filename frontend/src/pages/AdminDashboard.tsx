@@ -155,7 +155,7 @@ export const AdminDashboard = () => {
                 method: 'DELETE'
             });
             if (response.ok) {
-                setRefreshTrigger(prev => prev + 1); // Refresh the lists!
+                setRefreshTrigger(prev => prev + 1);
             } else {
                 alert('Failed to delete course.');
             }
@@ -172,7 +172,7 @@ export const AdminDashboard = () => {
                 method: 'DELETE'
             });
             if (response.ok) {
-                setRefreshTrigger(prev => prev + 1); // Refresh the lists!
+                setRefreshTrigger(prev => prev + 1);
             } else {
                 alert('Failed to delete lesson.');
             }
