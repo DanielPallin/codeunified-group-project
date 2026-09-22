@@ -10,6 +10,8 @@
   max-width: 1000px;
   aspect-ratio: 16 / 9;
   border: none;
+  margin: 2rem 0;
+  
 }
 
 .back-button {
@@ -24,4 +26,33 @@
 .back-button:hover {
   background-color: var(--accent);
   color: var(--bg-primary);
+}
+
+.lesson-page ul {
+  color: var(--text-primary);
+}
+
+.lesson-page li {
+  color: var(--text-primary);
+}
+
+.lesson-content {
+  max-width: 1000px;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  margin-bottom: 2rem;
+}
+
+.lesson-content pre {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.lesson-content code {
+  color: var(--text-primary);
 }
