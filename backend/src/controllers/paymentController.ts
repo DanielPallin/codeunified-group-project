@@ -2,15 +2,13 @@ import type { Request, Response } from 'express';
 import pool from '../db.js';
 import { v4 as uuidv4 } from 'uuid';
 
-const MOCK_USER_ID = '123e4567-e89b-12d3-a456-426614174000';
-
 export const processMockPayment = async (req: Request, res: Response): Promise<any> => {
 
     const client = await pool.connect();
     
     try {
         const { plan_id } = req.body;
-        const userId = MOCK_USER_ID;
+        const userId = (req as any).user?.userId;
 
         if (!plan_id) {
             return res.status(400).json({ error: 'plan_id is required in the request body' });
