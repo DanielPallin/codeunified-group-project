@@ -60,15 +60,15 @@ const CoursePage = () => {
   }, [slug]);
 
   if (loading) {
-    if (showLoader) {
-      return (
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      );
-    }
-
-    return null;
+    return (
+      <div className="course-page">
+        {showLoader && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   if (error) {

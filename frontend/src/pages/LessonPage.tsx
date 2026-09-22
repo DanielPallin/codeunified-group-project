@@ -47,15 +47,15 @@ const LessonPage = () => {
   }, [courseSlug, lessonSlug]);
 
   if (loading) {
-    if (showLoader) {
-      return (
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      );
-    }
-
-    return null;
+    return (
+      <div className="lesson-page">
+        {showLoader && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   if (error) {
