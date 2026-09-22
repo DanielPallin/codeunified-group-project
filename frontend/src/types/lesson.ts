@@ -7,4 +7,5 @@ export type Lesson = {
   media_url: string | null;
   duration_seconds: number;
   sequence_order: number;
+  course_slug: string;
 };

@@ -4,9 +4,11 @@ import type { Course } from "../types/course";
 import type { Lesson } from "../types/lesson";
 import "./CoursePage.css";
 import LessonCard from "../components/LessonCard";
+import { useNavigate } from "react-router-dom";
 
 const CoursePage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
@@ -63,13 +65,14 @@ const CoursePage = () => {
 
   return (
     <div className="course-page">
+      <button className="back-button" onClick={() => navigate(-1)}>← Back to Courses</button>
       <h1>{course.name}</h1>
       <p>{course.description}</p>
 
       <h2>Lessons</h2>
 
       {lessons.map((lesson) => (
-       <LessonCard key={lesson.id} lesson={lesson} />
+        <LessonCard key={lesson.id} lesson={lesson} />
       ))}
     </div>
   );
