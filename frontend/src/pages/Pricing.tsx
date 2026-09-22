@@ -7,8 +7,13 @@ const Pricing = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(true);
+    }, 500);
+
     const fetchPlans = async () => {
       try {
         setLoading(true);
@@ -26,16 +31,29 @@ const Pricing = () => {
         setError("Failed to fetch plans");
       } finally {
         setLoading(false);
+        clearTimeout(timer);
       }
     };
 
     fetchPlans();
+    return () => clearTimeout(timer);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="pricing-page">
+        {showLoader && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="pricing-page">
       <h1>Choose Your Plan</h1>
-      {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
       {plans.map((plan) => (
