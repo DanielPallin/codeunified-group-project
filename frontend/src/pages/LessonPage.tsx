@@ -24,7 +24,11 @@ const LessonPage = () => {
         setError(null);
 
         const response = await fetch(
-          `http://localhost:3000/api/courses/${courseSlug}/lessons/${lessonSlug}`,
+          `http://localhost:3000/api/courses/${courseSlug}/lessons/${lessonSlug}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
 
         if (!response.ok) {
