@@ -14,6 +14,7 @@ export const getLessonsByCourse = async (req: Request, res: Response) => {
         l.lesson_title AS title,
         l.lesson_slug AS slug,
         l.content_body AS content,
+        l.lesson_description AS description,
         l.media_url,
         l.duration_seconds,
         l.sequence_order
@@ -46,6 +47,7 @@ export const getLessonBySlug = async (req: Request, res: Response) => {
         l.lesson_title AS title,
         l.lesson_slug AS slug,
         l.content_body AS content,
+        l.lesson_description AS description,
         l.media_url,
         l.duration_seconds,
         l.sequence_order

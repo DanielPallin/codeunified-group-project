@@ -9,7 +9,7 @@ const LessonCard = ({ lesson }: { lesson: Lesson }) => {
         <h3>
           {lesson.sequence_order}. {lesson.title}
         </h3>
-        <p>{lesson.content}</p>
+        <p>{lesson.description}</p>
         <p>Duration: {Math.ceil(lesson.duration_seconds / 60)} min</p>
       </div>
     </Link>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { Lesson } from "../types/lesson";
 import "./LessonPage.css";
 import { useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 const LessonPage = () => {
   const { courseSlug, lessonSlug } = useParams();
@@ -52,8 +53,14 @@ const LessonPage = () => {
 
   return (
     <div className="lesson-page">
-      <button className="back-button" onClick={() => navigate(-1)}>← Back to Lessons</button>
-      <h1>{lesson.title}</h1>
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ← Back to Lessons
+      </button>
+
+      <div className="lesson-content">
+        <h1>{lesson.title}</h1>
+        <ReactMarkdown>{lesson.content}</ReactMarkdown>
+      </div>
 
       {lesson.media_url && (
         <iframe
@@ -62,7 +69,6 @@ const LessonPage = () => {
           title={lesson.title}
         />
       )}
-      <p>Duration: {Math.ceil(lesson.duration_seconds / 60)} min</p>
     </div>
   );
 };

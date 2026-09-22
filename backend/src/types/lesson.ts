@@ -5,6 +5,7 @@ export type Lesson = {
   title: string;
   slug: string;
   content: string;
+  description: string;
   media_url: string | null;
   duration_seconds: number;
   sequence_order: number;
