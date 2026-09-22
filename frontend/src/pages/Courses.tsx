@@ -7,8 +7,13 @@ const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(true);
+    }, 500);
+
     const fetchCourses = async () => {
       try {
         setLoading(true);
@@ -26,16 +31,29 @@ const Courses = () => {
         setError("Failed to fetch courses");
       } finally {
         setLoading(false);
+        clearTimeout(timer);
       }
     };
 
     fetchCourses();
+    return () => clearTimeout(timer);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="courses-page">
+        {showLoader && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="courses-page">
       <h1 className="courses-selection-title">Choose Your Course</h1>
-      {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
       <section>

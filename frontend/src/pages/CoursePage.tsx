@@ -13,8 +13,13 @@ const CoursePage = () => {
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(true);
+    }, 500);
+
     const fetchCourseWithLessons = async () => {
       try {
         setLoading(true);
@@ -45,14 +50,25 @@ const CoursePage = () => {
         setError("Failed to fetch course");
       } finally {
         setLoading(false);
+        clearTimeout(timer);
       }
     };
 
     fetchCourseWithLessons();
+
+    return () => clearTimeout(timer);
   }, [slug]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    if (showLoader) {
+      return (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      );
+    }
+
+    return null;
   }
 
   if (error) {
@@ -60,12 +76,14 @@ const CoursePage = () => {
   }
 
   if (!course) {
-    return <p>Course not found</p>;
+    return <p>No course found.</p>;
   }
 
   return (
     <div className="course-page">
-      <button className="back-button" onClick={() => navigate(-1)}>← Back to Courses</button>
+      <button className="back-button" onClick={() => navigate(-1)}>
+        ← Back to Courses
+      </button>
       <h1>{course.name}</h1>
       <p>{course.description}</p>
 

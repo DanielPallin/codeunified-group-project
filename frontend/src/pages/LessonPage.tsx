@@ -11,8 +11,13 @@ const LessonPage = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(true);
+    }, 500);
+
     const fetchLesson = async () => {
       try {
         setLoading(true);
@@ -33,14 +38,24 @@ const LessonPage = () => {
         setError("Failed to fetch lesson");
       } finally {
         setLoading(false);
+        clearTimeout(timer);
       }
     };
 
     fetchLesson();
+    return () => clearTimeout(timer);
   }, [courseSlug, lessonSlug]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    if (showLoader) {
+      return (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      );
+    }
+
+    return null;
   }
 
   if (error) {
