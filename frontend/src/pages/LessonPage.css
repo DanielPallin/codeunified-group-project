@@ -26,6 +26,7 @@
 .back-button:hover {
   background-color: var(--accent);
   color: var(--bg-primary);
+  cursor: pointer;
 }
 
 .lesson-page ul {
