@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Courses from "./pages/Courses";
 import CoursePage from "./pages/CoursePage";
 import Register from "./pages/Register";
@@ -15,7 +17,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<h1>Welcome to the App</h1>} />
+        <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<Courses />} />
@@ -24,6 +26,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 }
