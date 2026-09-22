@@ -8,7 +8,7 @@
 
 .site-nav {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   width: 100%;
   min-height: 68px;
@@ -32,6 +32,12 @@
   font-family: monospace;
   font-size: 1.45rem;
   font-weight: 700;
+}
+
+.site-mobile-menu {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
 }
 
 .site-nav-links {
@@ -62,18 +68,28 @@
     background-color 0.2s ease;
 }
 
-.site-nav a:hover,
-.site-nav button:hover {
+.site-nav a:hover {
   color: var(--accent);
 }
 
-.site-nav button {
+/* LOGOUT */
+
+.site-nav-account button {
   padding: 0;
   border: none;
-  background: none;
+  background: transparent;
+  color: var(--text-secondary);
   font: inherit;
   cursor: pointer;
 }
+
+.site-nav-account button:hover {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+}
+
+/* REGISTER */
 
 .site-nav .site-register {
   padding: 0.65rem 1.25rem;
@@ -87,31 +103,89 @@
   color: var(--bg-primary);
 }
 
-@media (max-width: 1000px) {
+/* HAMBURGER */
+
+.site-menu-button {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  border: 1px solid var(--card-border);
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.site-menu-button span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 5px 0;
+  border-radius: 2px;
+  background-color: var(--text-primary);
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
   .site-nav {
-    grid-template-columns: auto auto;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
+    grid-template-columns: 1fr auto;
+    min-height: 64px;
+    padding: 0 1.5rem;
   }
 
-  .site-nav-account {
-    justify-self: end;
-    min-width: auto;
+  .site-menu-button {
+    display: block;
+  }
+
+  .site-mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    grid-template-columns: 1fr;
+    padding: 1rem 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    background-color: var(--bg-secondary);
+  }
+
+  .site-mobile-menu.is-open {
+    display: grid;
   }
 
   .site-nav-links {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-content: flex-start;
-    gap: 1.5rem;
-    overflow-x: auto;
-    padding-top: 0.5rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-nav-links a {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .site-nav-account {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-width: 0;
+    padding-top: 1rem;
+  }
+
+  .site-nav-account > a,
+  .site-nav-account > button {
+    text-align: left;
+  }
+
+  .site-nav .site-register {
+    text-align: center;
   }
 }
 
 @media (max-width: 550px) {
   .site-nav {
-    padding: 1rem;
+    padding: 0 1rem;
   }
 
   .site-logo {
@@ -122,11 +196,7 @@
     font-size: 1.2rem;
   }
 
-  .site-nav-account {
-    gap: 0.8rem;
-  }
-
-  .site-nav-links {
-    gap: 1.2rem;
+  .site-mobile-menu {
+    padding: 0.75rem 1rem 1.25rem;
   }
 }
