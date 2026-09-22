@@ -42,6 +42,5 @@ input,
 textarea,
 select {
   font: inherit;
-  background-color: var(--accent);
   border: none;
 }

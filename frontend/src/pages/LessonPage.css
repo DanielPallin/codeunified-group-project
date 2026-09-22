@@ -1,0 +1,27 @@
+.lesson-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.lesson-video {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+.back-button {
+  padding: 0.65rem 1.25rem;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  color: var(--accent);
+  background-color: transparent;
+  align-self: flex-start;
+}
+
+.back-button:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
