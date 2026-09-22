@@ -28,6 +28,7 @@ export const getCourses = async (req: Request, res: Response) => {
 export const getCourseBySlug = async (req: Request, res: Response) => {
   try {
     const { slug } = req.params;
+    const userId = (req as any).user?.userId;
 
     const result = await pool.query<Course>(
       `SELECT
@@ -47,7 +48,33 @@ export const getCourseBySlug = async (req: Request, res: Response) => {
       });
     }
 
-    res.json(result.rows[0]);
+    const course = result.rows[0]!;
+    let userAccessLevel = 0;
+
+    if (userId) {
+      const subResult = await pool.query(
+        `SELECT p.access_level
+         FROM subscriptions s
+         JOIN plans p ON s.plan_id = p.plan_id
+         WHERE s.user_id = $1 AND s.status = 'active'`,
+        [userId]
+      );
+
+      if (subResult.rows.length > 0) {
+        userAccessLevel = subResult.rows[0].access_level;
+      }
+    }
+
+    if (userAccessLevel < course.min_access_level) {
+      return res.status(403).json({
+        message: "You need to upgrade your subscription to access this course.",
+        requiredLevel: course.min_access_level,
+        currentLevel: userAccessLevel,
+        course: course
+      });
+    }
+
+    res.json(course);
   } catch (error) {
     console.error(error);
 
