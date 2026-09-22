@@ -6,7 +6,9 @@
   border: 1px solid var(--card-border);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   width: 800px;
   margin-bottom: 1rem;
   background-color: var(--card-bg);
@@ -19,8 +21,25 @@
 }
 
 .plan-card button {
+  border-radius: 7px;
+  margin: 0.5rem 0;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background-color: transparent;
+}
+
+.plan-card button:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  border-radius: 6px;
+}
+
+.plan-card p {
+  margin: 0.5rem 0;
+}
+
+.plan-card-title {
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
+  color: var(--accent);
 }
