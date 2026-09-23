@@ -51,10 +51,14 @@ const CoursePage = () => {
         );
 
         if (!lessonsResponse.ok) {
-          throw new Error("Failed to fetch lessons");
+          const errorData = await lessonsResponse.json();
+
+          throw new Error(errorData.message);
         }
         if (!response.ok) {
-          throw new Error("Something went wrong");
+          const errorData = await response.json();
+
+          throw new Error(errorData.message);
         }
 
         const lessonsData = await lessonsResponse.json();
@@ -65,7 +69,12 @@ const CoursePage = () => {
         setCourse(data);
       } catch (error) {
         console.error(error);
-        setError("Failed to fetch course");
+
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Failed to fetch course");
+        }
       } finally {
         setLoading(false);
         clearTimeout(timer);
