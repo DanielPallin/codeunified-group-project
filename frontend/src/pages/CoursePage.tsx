@@ -25,6 +25,14 @@ const CoursePage = () => {
         setLoading(true);
         setError(null);
 
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          setError("You must be logged in to access this course.");
+
+          return;
+        }
+
         const lessonsResponse = await fetch(
           `http://localhost:3000/api/courses/${slug}/lessons`,
           {
