@@ -5,6 +5,7 @@ import type { Lesson } from "../types/lesson";
 import "./CoursePage.css";
 import LessonCard from "../components/LessonCard";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CoursePage = () => {
   const { slug } = useParams();
@@ -33,45 +34,27 @@ const CoursePage = () => {
           return;
         }
 
-        const lessonsResponse = await fetch(
-          `http://localhost:3000/api/courses/${slug}/lessons`,
-          {
+        const [lessonsResponse, courseResponse] = await Promise.all([
+          axios.get(`http://localhost:3000/api/courses/${slug}/lessons`, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
             },
-          },
-        );
-        const response = await fetch(
-          `http://localhost:3000/api/courses/${slug}`,
-          {
+          }),
+
+          axios.get(`http://localhost:3000/api/courses/${slug}`, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
             },
-          },
-        );
+          }),
+        ]);
 
-        if (!lessonsResponse.ok) {
-          const errorData = await lessonsResponse.json();
-
-          throw new Error(errorData.message);
-        }
-        if (!response.ok) {
-          const errorData = await response.json();
-
-          throw new Error(errorData.message);
-        }
-
-        const lessonsData = await lessonsResponse.json();
-        setLessons(lessonsData);
-        console.log("Fetched lessons:", lessonsData);
-
-        const data = await response.json();
-        setCourse(data);
+        setLessons(lessonsResponse.data);
+        setCourse(courseResponse.data);
       } catch (error) {
         console.error(error);
 
-        if (error instanceof Error) {
-          setError(error.message);
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to fetch course");
         } else {
           setError("Failed to fetch course");
         }
