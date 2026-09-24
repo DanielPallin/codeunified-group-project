@@ -102,6 +102,13 @@ const CoursePage = () => {
       {lessons.map((lesson) => (
         <LessonCard key={lesson.id} lesson={lesson} />
       ))}
+
+      <button
+        className="quiz-button"
+        onClick={() => navigate(`/courses/${course.slug}/quiz`)}
+      >
+        Take Quiz
+      </button>
     </div>
   );
 };

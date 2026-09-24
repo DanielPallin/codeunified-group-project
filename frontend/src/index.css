@@ -37,10 +37,3 @@ a {
   text-decoration: none;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  border: none;
-}

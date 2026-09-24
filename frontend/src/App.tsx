@@ -11,6 +11,7 @@ import LessonPage from "./pages/LessonPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import QuizPage from "./pages/QuizPage";
 
 function App() {
   return (
@@ -23,8 +24,11 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:slug" element={<CoursePage />} />
-        <Route path="/courses/:courseSlug/lessons/:lessonSlug" element={<LessonPage />}
+        <Route
+          path="/courses/:courseSlug/lessons/:lessonSlug"
+          element={<LessonPage />}
         />
+        <Route path="/courses/:courseSlug/quiz" element={<QuizPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
