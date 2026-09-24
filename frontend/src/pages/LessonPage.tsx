@@ -4,6 +4,7 @@ import type { Lesson } from "../types/lesson";
 import "./LessonPage.css";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import axios from "axios";
 
 const LessonPage = () => {
   const { courseSlug, lessonSlug } = useParams();
@@ -23,23 +24,25 @@ const LessonPage = () => {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          `http://localhost:3000/api/courses/${courseSlug}/lessons/${lessonSlug}`, {
+        const response = await axios.get(
+          `http://localhost:3000/api/courses/${courseSlug}/lessons/${lessonSlug}`,
+
+          {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          }
+          },
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch lesson");
-        }
-
-        const data = await response.json();
-        setLesson(data);
+        setLesson(response.data);
       } catch (error) {
         console.error(error);
-        setError("Failed to fetch lesson");
+
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to fetch lesson");
+        } else {
+          setError("Failed to fetch lesson");
+        }
       } finally {
         setLoading(false);
         clearTimeout(timer);

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Course } from "../types/course";
 import CourseCard from "../components/CourseCard";
 import "./Courses.css";
+import axios from "axios";
 
 const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -18,17 +19,18 @@ const Courses = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch("http://localhost:3000/api/courses");
 
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
+        const response = await axios.get("http://localhost:3000/api/courses");
 
-        const data = await response.json();
-        setCourses(data);
+        setCourses(response.data);
       } catch (error) {
         console.error(error);
-        setError("Failed to fetch courses");
+
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to fetch courses");
+        } else {
+          setError("Failed to fetch courses");
+        }
       } finally {
         setLoading(false);
         clearTimeout(timer);

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Plan } from "../types/plan.js";
 import PlanCard from "../components/PlanCard.js";
 import "./Pricing.css";
+import axios from "axios";
 
 const Pricing = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -18,17 +19,18 @@ const Pricing = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch("http://localhost:3000/api/plans");
 
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
+        const response = await axios.get("http://localhost:3000/api/plans");
 
-        const data = await response.json();
-        setPlans(data);
+        setPlans(response.data);
       } catch (error) {
         console.error(error);
-        setError("Failed to fetch plans");
+
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to fetch plans");
+        } else {
+          setError("Failed to fetch plans");
+        }
       } finally {
         setLoading(false);
         clearTimeout(timer);
