@@ -183,6 +183,11 @@
   }
 }
 
+.site-nav-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 @media (max-width: 550px) {
   .site-nav {
     padding: 0 1rem;

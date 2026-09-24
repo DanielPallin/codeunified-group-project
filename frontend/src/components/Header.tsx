@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
@@ -44,21 +44,18 @@ const Header = () => {
 
         <div className={`site-mobile-menu ${menuOpen ? "is-open" : ""}`}>
           <div className="site-nav-links">
-            <Link to="/" onClick={closeMenu}>
+            <NavLink to="/" onClick={closeMenu}>
               Home
-            </Link>
-            <Link to="/courses" onClick={closeMenu}>
+            </NavLink>
+            <NavLink to="/courses" onClick={closeMenu}>
               Courses
-            </Link>
-            <Link to="/quiz" onClick={closeMenu}>
-              Quiz
-            </Link>
-            <Link to="/pricing" onClick={closeMenu}>
+            </NavLink>
+            <NavLink to="/pricing" onClick={closeMenu}>
               Pricing
-            </Link>
-            <Link to="/dashboard" onClick={closeMenu}>
+            </NavLink>
+            <NavLink to="/dashboard" onClick={closeMenu}>
               Dashboard
-            </Link>
+            </NavLink>
           </div>
 
           <div className="site-nav-account">
