@@ -67,7 +67,7 @@ export default function Dashboard() {
                 
             } catch (err) {
                 console.error('Fetch error:', err);
-                setError('Could not load dashboard data at this time.');
+                setError('Login to see dashboard data.');
             } finally {
                 setIsLoading(false);
             }
