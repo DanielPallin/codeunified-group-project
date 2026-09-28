@@ -1,0 +1,94 @@
+import { useEffect, useState } from "react";
+import type { Course } from "../types/course";
+import CourseCard from "../components/CourseCard";
+import "./Courses.css";
+import axios from "axios";
+
+const Courses = () => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(true);
+    }, 500);
+
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await axios.get("http://localhost:3000/api/courses");
+
+        setCourses(response.data);
+      } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to fetch courses");
+        } else {
+          setError("Failed to fetch courses");
+        }
+      } finally {
+        setLoading(false);
+        clearTimeout(timer);
+      }
+    };
+
+    fetchCourses();
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="courses-page">
+        {showLoader && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="courses-page">
+      <h1>Choose Your Course</h1>
+      {error && <p>{error}</p>}
+
+      <section>
+        <h3 className="courses-section-title">Basic</h3>
+
+        {courses
+          .filter((course) => course.min_access_level === 1)
+          .map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+      </section>
+
+      <section>
+        <h3 className="courses-section-title">Plus</h3>
+
+        {courses
+          .filter((course) => course.min_access_level === 2)
+          .map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+      </section>
+
+      <section>
+        <h3 className="courses-section-title">Pro</h3>
+
+        {courses
+          .filter((course) => course.min_access_level === 3)
+          .map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+      </section>
+    </div>
+  );
+};
+
+export default Courses;
