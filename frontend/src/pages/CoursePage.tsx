@@ -15,6 +15,7 @@ const CoursePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showLoader, setShowLoader] = useState(false);
+  const [errorStatus, setErrorStatus] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,6 +54,8 @@ const CoursePage = () => {
         console.error(error);
 
         if (axios.isAxiosError(error)) {
+          setErrorStatus(error.response?.status ?? null);
+
           setError(error.response?.data?.message || "Failed to fetch course");
         } else {
           setError("Failed to fetch course");
@@ -81,7 +84,13 @@ const CoursePage = () => {
   }
 
   if (error) {
-    return <p className="course-page-error">{error} Please <Link to="/pricing">upgrade</Link> your plan to continue.</p>;
+    return (
+      <div className="course-page">
+        <p>{error}</p>
+
+        {errorStatus === 403 && <Link to="/pricing">Upgrade your plan</Link>}
+      </div>
+    );
   }
 
   if (!course) {
