@@ -23,3 +23,9 @@
   color: var(--text-secondary);
   margin: 0.5rem 0;
 }
+
+@media (max-width: 760px) {
+  .lesson-card {
+    width: 400px;
+  }
+}
