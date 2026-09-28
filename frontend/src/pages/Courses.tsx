@@ -3,12 +3,16 @@ import type { Course } from "../types/course";
 import CourseCard from "../components/CourseCard";
 import "./Courses.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showLoader, setShowLoader] = useState(false);
+
+  const token = localStorage.getItem("token");
+  const isLoggedIn = Boolean(token);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -55,9 +59,13 @@ const Courses = () => {
 
   return (
     <div className="courses-page">
-      <h1>Choose Your Course</h1>
+      <h1 className="courses-page-title">Choose Your Course</h1>
       {error && <p>{error}</p>}
-
+      {!isLoggedIn && (
+        <p className="courses-page-subtitle">
+          Please <Link to="/login">log in</Link> to access your courses.
+        </p>
+      )}
       <section>
         <h3 className="courses-section-title">Basic</h3>
 
