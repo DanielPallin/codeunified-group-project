@@ -12,10 +12,12 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import QuizPage from "./pages/QuizPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
 
       <Routes>
