@@ -21,22 +21,21 @@ const Pricing = () => {
         setLoading(true);
         setError(null);
 
-        const [plansResponse, activeSubscriptionResponse] = await Promise.all([
-          axios.get("http://localhost:3000/api/plans"),
-
-          axios.get(
-            "http://localhost:3000/api/dashboard/plan",
-
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            },
-          ),
-        ]);
-
+        const plansResponse = await axios.get("http://localhost:3000/api/plans");
         setPlans(plansResponse.data);
-        setActivePlanId(activeSubscriptionResponse.data.plan_id);
+
+        const token = localStorage.getItem("token");
+        if (token) {
+          try {
+            const activeSubscriptionResponse = await axios.get(
+              "http://localhost:3000/api/dashboard/plan",
+              { headers: { Authorization: `Bearer ${token}` } },
+            );
+            setActivePlanId(activeSubscriptionResponse.data.plan_id);
+          } catch {
+            setActivePlanId(null);
+          }
+        }
       } catch (error) {
         console.error(error);
 
@@ -69,12 +68,28 @@ const Pricing = () => {
 
   return (
     <div className="pricing-page">
-      <h1 className="pricing-page-title">Choose Your Plan</h1>
-      {error && <p>{error}</p>}
+      <section className="pricing-content" aria-labelledby="pricing-title">
+        <header className="pricing-intro">
+          <h1 id="pricing-title" className="pricing-page-title">
+            Choose Your Learning Plan
+          </h1>
+          <p>Start free and unlock more as you progress.</p>
+        </header>
 
-      {plans.map((plan) => (
-        <PlanCard key={plan.id} plan={plan} activePlanId={activePlanId} />
-      ))}
+        {error ? (
+          <p className="pricing-error">{error}</p>
+        ) : (
+          <div className="pricing-plans">
+            {plans.map((plan) => (
+              <PlanCard
+                key={plan.id}
+                plan={plan}
+                activePlanId={activePlanId}
+              />
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 };

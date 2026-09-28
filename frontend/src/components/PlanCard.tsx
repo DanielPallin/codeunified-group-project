@@ -45,12 +45,19 @@ const PlanCard = ({ plan, activePlanId }: PlanCardProps) => {
   };
 
   return (
-    <div className="plan-card">
-      <h3 className="plan-card-title">{plan.name}</h3>
-      <p>
-        {plan.price} {plan.currency} / {plan.billing_interval}
+    <article className="plan-card">
+      <h2 className="plan-card-title">{plan.name}</h2>
+      <p className="plan-card-price">
+        {plan.price} {plan.currency}
+        <span>/ {plan.billing_interval}</span>
       </p>
-      <p>{plan.description}</p>
+      <ul className="plan-card-features">
+        {plan.description
+          .split(/\r?\n|,|;/)
+          .map((feature) => feature.trim())
+          .filter(Boolean)
+          .map((feature) => <li key={feature}>{feature}</li>)}
+      </ul>
       <button
         onClick={handleCheckout}
         disabled={loading || isActivePlan}
@@ -60,9 +67,11 @@ const PlanCard = ({ plan, activePlanId }: PlanCardProps) => {
           ? "Currently Active"
           : loading
             ? "Processing..."
-            : `Checkout ${plan.name}`}
+            : plan.price === 0
+              ? "Get Started Free"
+              : `Choose ${plan.name}`}
       </button>
-    </div>
+    </article>
   );
 };
 
