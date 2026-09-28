@@ -17,6 +17,10 @@
   color: var(--accent);
 }
 
+.courses-section:last-child {
+  padding-bottom: 5rem;
+}
+
 .loader-container {
   min-height: 100vh;
   display: flex;
