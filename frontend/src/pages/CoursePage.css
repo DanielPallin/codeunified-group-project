@@ -24,6 +24,10 @@
   animation: spin 0.8s linear infinite;
 }
 
+.course-page-error {
+  text-align: center;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

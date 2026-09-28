@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import type { Course } from "../types/course";
 import type { Lesson } from "../types/lesson";
 import "./CoursePage.css";
@@ -81,7 +81,7 @@ const CoursePage = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="course-page-error">{error} Please <Link to="/pricing">upgrade</Link> your plan to continue.</p>;
   }
 
   if (!course) {
