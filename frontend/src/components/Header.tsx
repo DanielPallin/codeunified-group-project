@@ -53,9 +53,11 @@ const Header = () => {
             <NavLink to="/pricing" onClick={closeMenu}>
               Pricing
             </NavLink>
-            <NavLink to="/dashboard" onClick={closeMenu}>
-              Dashboard
-            </NavLink>
+            {isLoggedIn && (
+              <NavLink to="/dashboard" onClick={closeMenu}>
+                Dashboard
+              </NavLink>
+            )}
           </div>
 
           <div className="site-nav-account">

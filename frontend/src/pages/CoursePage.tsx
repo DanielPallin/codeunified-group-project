@@ -29,8 +29,7 @@ const CoursePage = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
-          setError("You must be logged in to access this course.");
-
+          navigate("/login");
           return;
         }
 
@@ -67,7 +66,7 @@ const CoursePage = () => {
     fetchCourseWithLessons();
 
     return () => clearTimeout(timer);
-  }, [slug]);
+  }, [slug, navigate]);
 
   if (loading) {
     return (
