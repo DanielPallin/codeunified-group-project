@@ -94,7 +94,7 @@ const CoursePage = () => {
       <button className="back-button" onClick={() => navigate(-1)}>
         ← Back to Courses
       </button>
-      <h1>{course.name}</h1>
+      <h1 className="course-page-title">{course.name}</h1>
       <p>{course.description}</p>
 
       <h2>Lessons</h2>

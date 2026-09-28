@@ -1,17 +1,16 @@
 .plan-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  border: 1px solid var(--card-border);
+  min-height: 420px;
+  padding: 1.25rem 1.5rem;
+  border: 2px solid var(--card-border);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  box-sizing: border-box;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
-  width: 800px;
-  margin-bottom: 1rem;
-  background-color: var(--card-bg);
 }
 
 .plan-card:hover {
@@ -20,43 +19,76 @@
   border-color: var(--accent);
 }
 
-.plan-card button {
-  border-radius: 7px;
-  margin: 0.5rem 0;
-  border: 1px solid var(--accent);
+.plan-card-title {
+  margin: 0;
   color: var(--accent);
-  background-color: transparent;
+  font-size: 1.55rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
 }
 
-.plan-card button:hover {
-  background-color: var(--accent);
-  color: var(--bg-primary);
+.plan-card-price {
+  margin: 2rem 0 2.15rem;
+  color: var(--text-secondary);
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.plan-card-price span {
+  display: block;
+}
+
+.plan-card-features {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.plan-card-features li::before {
+  content: "✓";
+  margin-right: 0.7rem;
+  color: var(--accent);
+}
+
+.plan-card button {
+  align-self: center;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
   cursor: pointer;
 }
 
-.plan-card p {
-  margin: 0.5rem 0;
-}
-
-.plan-card-title {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: var(--accent);
+.plan-card button:hover:not(:disabled) {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
 }
 
 .plan-card button.current-plan-button,
 .plan-card button.current-plan-button:disabled {
-  background-color: #e0e0e0;
-  color: #777;
-  border-color: #ccc;
+  color: var(--text-muted);
   cursor: not-allowed;
   opacity: 1;
 }
 
-.plan-card button.current-plan-button:hover,
-.plan-card button.current-plan-button:disabled:hover {
-  background-color: #e0e0e0;
-  color: #777;
-  border-color: #ccc;
-  cursor: not-allowed;
+@media (max-width: 760px) {
+  .plan-card {
+    min-height: 390px;
+  }
 }

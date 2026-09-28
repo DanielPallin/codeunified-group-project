@@ -55,7 +55,7 @@ const Courses = () => {
 
   return (
     <div className="courses-page">
-      <h1 className="courses-selection-title">Choose Your Course</h1>
+      <h1>Choose Your Course</h1>
       {error && <p>{error}</p>}
 
       <section>

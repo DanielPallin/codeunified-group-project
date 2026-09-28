@@ -7,6 +7,12 @@
   margin-top: 2rem;
 }
 
+.courses-page-title {
+  margin-top: 5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 .courses-section-title {
   color: var(--accent);
 }
