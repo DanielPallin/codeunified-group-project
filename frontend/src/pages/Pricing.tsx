@@ -9,20 +9,34 @@ const Pricing = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showLoader, setShowLoader] = useState(false);
+  const [activePlanId, setActivePlanId] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLoader(true);
     }, 500);
 
-    const fetchPlans = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const response = await axios.get("http://localhost:3000/api/plans");
+        const [plansResponse, activeSubscriptionResponse] = await Promise.all([
+          axios.get("http://localhost:3000/api/plans"),
 
-        setPlans(response.data);
+          axios.get(
+            "http://localhost:3000/api/dashboard/plan",
+
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            },
+          ),
+        ]);
+
+        setPlans(plansResponse.data);
+        setActivePlanId(activeSubscriptionResponse.data.plan_id);
       } catch (error) {
         console.error(error);
 
@@ -37,7 +51,7 @@ const Pricing = () => {
       }
     };
 
-    fetchPlans();
+    fetchData();
     return () => clearTimeout(timer);
   }, []);
 
@@ -59,7 +73,7 @@ const Pricing = () => {
       {error && <p>{error}</p>}
 
       {plans.map((plan) => (
-        <PlanCard key={plan.id} plan={plan} />
+        <PlanCard key={plan.id} plan={plan} activePlanId={activePlanId} />
       ))}
     </div>
   );

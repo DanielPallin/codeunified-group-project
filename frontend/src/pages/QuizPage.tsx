@@ -7,6 +7,9 @@ import type { QuizResult } from "../types/quizResult";
 
 const QuizPage = () => {
   const { courseSlug } = useParams();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showLoader, setShowLoader] = useState(false);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<
     Record<string, string>
@@ -34,10 +37,19 @@ const QuizPage = () => {
       setResult(response.data);
     } catch (error) {
       console.error(error);
+
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message || "Failed to submit quiz");
+      } else {
+        setError("Failed to submit quiz");
+      }
     }
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(true);
+    }, 500);
     const fetchQuiz = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -55,17 +67,46 @@ const QuizPage = () => {
         setQuiz(response.data);
       } catch (error) {
         console.error(error);
+
+        if (axios.isAxiosError(error)) {
+          setError(error.response?.data?.message || "Failed to fetch quiz");
+        } else {
+          setError("Failed to fetch quiz");
+        }
+      } finally {
+        setLoading(false);
+        clearTimeout(timer);
       }
     };
 
     if (courseSlug) {
       fetchQuiz();
+      return () => clearTimeout(timer);
     }
   }, [courseSlug]);
 
-  if (!quiz) {
-    return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="quiz-page">
+        {showLoader && (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        )}
+      </div>
+    );
   }
+
+  if (!quiz) {
+    return (
+      <div className="quiz-page">
+        <p>{error || "Quiz could not be loaded."}</p>
+      </div>
+    );
+  }
+
+  const allQuestionsAnswered =
+    quiz.questions.length === Object.keys(selectedAnswers).length;
   return (
     <div className="quiz-page">
       <h1 className="quiz-title">{quiz.quiz_title}</h1>
@@ -99,7 +140,12 @@ const QuizPage = () => {
           </div>
         </div>
       ))}
-      <button className="submit-button" onClick={handleSubmit}>
+
+      <button
+        className="submit-button"
+        onClick={handleSubmit}
+        disabled={!allQuestionsAnswered}
+      >
         Submit Quiz
       </button>
 
@@ -108,7 +154,7 @@ const QuizPage = () => {
           <h2>Quiz Result</h2>
 
           <p>
-            {result.correct_answers} / {result.total_questions} rätt
+            {result.correct_answers} / {result.total_questions} correct
           </p>
 
           <p>Score: {result.score_percentage}%</p>

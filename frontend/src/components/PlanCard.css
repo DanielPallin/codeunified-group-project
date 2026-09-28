@@ -43,3 +43,20 @@
   margin-bottom: 0.5rem;
   color: var(--accent);
 }
+
+.plan-card button.current-plan-button,
+.plan-card button.current-plan-button:disabled {
+  background-color: #e0e0e0;
+  color: #777;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.plan-card button.current-plan-button:hover,
+.plan-card button.current-plan-button:disabled:hover {
+  background-color: #e0e0e0;
+  color: #777;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
