@@ -6,7 +6,7 @@ export const getCurrentPlan = async (req: Request, res: Response): Promise<any> 
         const userId = (req as any).user?.userId;
 
         const query = `
-            SELECT p.name, p.description, p.access_level, s.status, s.current_period_end
+            SELECT p.plan_id, p.name, p.description, p.access_level, s.status, s.current_period_end
             FROM subscriptions s
             JOIN plans p ON s.plan_id = p.plan_id
             WHERE s.user_id = $1 AND s.status = 'active'
