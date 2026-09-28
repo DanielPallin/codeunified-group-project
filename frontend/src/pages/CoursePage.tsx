@@ -6,6 +6,7 @@ import "./CoursePage.css";
 import LessonCard from "../components/LessonCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackButton from "../components/BackButton";
 
 const CoursePage = () => {
   const { slug } = useParams();
@@ -99,9 +100,7 @@ const CoursePage = () => {
 
   return (
     <div className="course-page">
-      <button className="back-button" onClick={() => navigate(-1)}>
-        ← Back to Courses
-      </button>
+     <BackButton text="Back to Courses" />
       <h1 className="course-page-title">{course.name}</h1>
       <p>{course.description}</p>
 

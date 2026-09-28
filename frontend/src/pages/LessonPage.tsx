@@ -2,13 +2,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Lesson } from "../types/lesson";
 import "./LessonPage.css";
-import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import axios from "axios";
+import BackButton from "../components/BackButton";
 
 const LessonPage = () => {
   const { courseSlug, lessonSlug } = useParams();
-  const navigate = useNavigate();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -75,9 +74,7 @@ const LessonPage = () => {
 
   return (
     <div className="lesson-page">
-      <button className="back-button" onClick={() => navigate(-1)}>
-        ← Back to Lessons
-      </button>
+    <BackButton text="Back to Lessons" />
 
       <div className="lesson-content">
         <h1>{lesson.title}</h1>

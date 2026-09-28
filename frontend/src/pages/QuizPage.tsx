@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "./QuizPage.css";
 import type { Quiz } from "../types/quiz";
 import type { QuizResult } from "../types/quizResult";
+import BackButton from "../components/BackButton";
 
 const QuizPage = () => {
   const { courseSlug } = useParams();
@@ -109,6 +110,7 @@ const QuizPage = () => {
     quiz.questions.length === Object.keys(selectedAnswers).length;
   return (
     <div className="quiz-page">
+      <BackButton text="Back to Course" />
       <h1 className="quiz-title">{quiz.quiz_title}</h1>
 
       {quiz.questions.map((question) => (
