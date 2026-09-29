@@ -38,11 +38,15 @@ export const AdminDashboard = () => {
     const [lessonStatus, setLessonStatus] = useState('');
 
     const fetchAdminData = async () => {
-        try {
-            const [coursesRes, lessonsRes] = await Promise.all([
-                fetch('http://localhost:3000/api/admin/courses'),
-                fetch('http://localhost:3000/api/admin/lessons')
-            ]);
+    try {
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
+        const [coursesRes, lessonsRes] = await Promise.all([
+            fetch(`${API_URL}/api/admin/courses`),
+            fetch(`${API_URL}/api/admin/lessons`)
+        ]);
 
             if (coursesRes.ok && lessonsRes.ok) {
                 const coursesData = await coursesRes.json();
@@ -58,9 +62,13 @@ export const AdminDashboard = () => {
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
+                const API_URL = import.meta.env.PROD 
+                    ? 'https://codeunified-group-project.onrender.com' 
+                    : 'http://localhost:3000';
+
                 const [coursesRes, lessonsRes] = await Promise.all([
-                    fetch('http://localhost:3000/api/admin/courses'),
-                    fetch('http://localhost:3000/api/admin/lessons')
+                    fetch(`${API_URL}/api/admin/courses`),
+                    fetch(`${API_URL}/api/admin/lessons`)
                 ]);
 
                 if (coursesRes.ok && lessonsRes.ok) {
@@ -81,8 +89,12 @@ export const AdminDashboard = () => {
         e.preventDefault();
         setCourseStatus('Creating course...');
 
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
         try {
-            const response = await fetch('http://localhost:3000/api/admin/courses', {
+            const response = await fetch(`${API_URL}/api/admin/courses`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -117,8 +129,12 @@ export const AdminDashboard = () => {
         e.preventDefault();
         setLessonStatus('Creating lesson...');
 
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
         try {
-            const response = await fetch('http://localhost:3000/api/admin/lessons', {
+            const response = await fetch(`${API_URL}/api/admin/lessons`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -143,15 +159,19 @@ export const AdminDashboard = () => {
             }
         } catch (error) {
             setLessonStatus('A network error occurred.');
-            (console.error('Error creating lesson:', error));
+            console.error('Error creating lesson:', error);
         }
     };
 
     const handleDeleteCourse = async (courseId: string) => {
         if (!window.confirm('Are you sure you want to delete this course? All connected lessons will also be deleted.')) return;
         
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
         try {
-            const response = await fetch(`http://localhost:3000/api/admin/courses/${courseId}`, {
+            const response = await fetch(`${API_URL}/api/admin/courses/${courseId}`, {
                 method: 'DELETE'
             });
             if (response.ok) {
@@ -160,15 +180,19 @@ export const AdminDashboard = () => {
                 alert('Failed to delete course.');
             }
         } catch (error) {
-            console.error('Failed to delete', error);
+            console.error('Failed to delete course', error);
         }
     };
 
     const handleDeleteLesson = async (lessonId: string) => {
         if (!window.confirm('Are you sure you want to delete this lesson?')) return;
         
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
         try {
-            const response = await fetch(`http://localhost:3000/api/admin/lessons/${lessonId}`, {
+            const response = await fetch(`${API_URL}/api/admin/lessons/${lessonId}`, {
                 method: 'DELETE'
             });
             if (response.ok) {
@@ -177,7 +201,7 @@ export const AdminDashboard = () => {
                 alert('Failed to delete lesson.');
             }
         } catch (error) {
-            console.error('Failed to delete', error);
+            console.error('Failed to delete lesson', error);
         }
     };
 

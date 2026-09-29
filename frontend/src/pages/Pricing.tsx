@@ -21,14 +21,18 @@ const Pricing = () => {
         setLoading(true);
         setError(null);
 
-        const plansResponse = await axios.get("http://localhost:3000/api/plans");
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
+        const plansResponse = await axios.get(`${API_URL}/api/plans`);
         setPlans(plansResponse.data);
 
         const token = localStorage.getItem("token");
         if (token) {
           try {
             const activeSubscriptionResponse = await axios.get(
-              "http://localhost:3000/api/dashboard/plan",
+              `${API_URL}/api/dashboard/plan`,
               { headers: { Authorization: `Bearer ${token}` } },
             );
             setActivePlanId(activeSubscriptionResponse.data.plan_id);

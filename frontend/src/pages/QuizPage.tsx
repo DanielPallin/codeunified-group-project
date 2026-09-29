@@ -21,13 +21,15 @@ const QuizPage = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.post(
-        `http://localhost:3000/api/courses/${courseSlug}/quiz/submit`,
+      const API_URL = import.meta.env.PROD 
+        ? 'https://codeunified-group-project.onrender.com' 
+        : 'http://localhost:3000';
 
+      const response = await axios.post(
+        `${API_URL}/api/courses/${courseSlug}/quiz/submit`,
         {
           answers: selectedAnswers,
         },
-
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,9 +57,12 @@ const QuizPage = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(
-          `http://localhost:3000/api/courses/${courseSlug}/quiz`,
+        const API_URL = import.meta.env.PROD 
+          ? 'https://codeunified-group-project.onrender.com' 
+          : 'http://localhost:3000';
 
+        const response = await axios.get(
+          `${API_URL}/api/courses/${courseSlug}/quiz`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
