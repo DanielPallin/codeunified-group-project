@@ -27,7 +27,11 @@ const Register = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:3000/api/auth/register", {
+      const API_URL = import.meta.env.PROD 
+        ? 'https://codeunified-group-project.onrender.com' 
+        : 'http://localhost:3000';
+
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

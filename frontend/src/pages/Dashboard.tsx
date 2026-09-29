@@ -42,9 +42,13 @@ export default function Dashboard() {
                     'Authorization': `Bearer ${token}`
                 };
 
-                const planRes = await fetch('http://localhost:3000/api/dashboard/plan', { headers });
-                const coursesRes = await fetch('http://localhost:3000/api/dashboard/courses', { headers });
-                const receiptsRes = await fetch('http://localhost:3000/api/dashboard/receipts', { headers });
+                const API_URL = import.meta.env.PROD 
+                    ? 'https://codeunified-group-project.onrender.com' 
+                    : 'http://localhost:3000';
+
+                const planRes = await fetch(`${API_URL}/api/dashboard/plan`, { headers });
+                const coursesRes = await fetch(`${API_URL}/api/dashboard/courses`, { headers });
+                const receiptsRes = await fetch(`${API_URL}/api/dashboard/receipts`, { headers });
 
                 if (planRes.ok) {
                     const planData = await planRes.json();
@@ -67,7 +71,7 @@ export default function Dashboard() {
                 
             } catch (err) {
                 console.error('Fetch error:', err);
-                setError('Login to see dashboard data.');
+                setError('Could not load dashboard data at this time.');
             } finally {
                 setIsLoading(false);
             }

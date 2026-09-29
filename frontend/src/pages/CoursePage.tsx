@@ -35,18 +35,22 @@ const CoursePage = () => {
           return;
         }
 
-        const [lessonsResponse, courseResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/api/courses/${slug}/lessons`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
 
-          axios.get(`http://localhost:3000/api/courses/${slug}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
+        const [lessonsResponse, courseResponse] = await Promise.all([
+            axios.get(`${API_URL}/api/courses/${slug}/lessons`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }),
+
+            axios.get(`${API_URL}/api/courses/${slug}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }),
         ]);
 
         setLessons(lessonsResponse.data);

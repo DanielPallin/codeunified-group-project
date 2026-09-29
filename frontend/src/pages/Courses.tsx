@@ -24,7 +24,11 @@ const Courses = () => {
         setLoading(true);
         setError(null);
 
-        const response = await axios.get("http://localhost:3000/api/courses");
+        const API_URL = import.meta.env.PROD 
+            ? 'https://codeunified-group-project.onrender.com' 
+            : 'http://localhost:3000';
+
+        const response = await axios.get(`${API_URL}/api/courses`);
 
         setCourses(response.data);
       } catch (error) {
