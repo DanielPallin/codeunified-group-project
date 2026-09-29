@@ -16,32 +16,36 @@ const PlanCard = ({ plan, activePlanId }: PlanCardProps) => {
   const isActivePlan = plan.id === activePlanId;
 
   const handleCheckout = async () => {
-  const token = localStorage.getItem("token");
-  setLoading(true);
+    const token = localStorage.getItem("token");
+    setLoading(true);
 
-  const API_URL = import.meta.env.PROD 
-    ? "https://codeunified-group-project.onrender.com/api/payments/checkout" 
-    : "http://localhost:3000";
+    const API_URL = import.meta.env.PROD 
+      ? "https://codeunified-group-project.onrender.com" 
+      : "http://localhost:3000";
 
-  try {
-    const response = await axios.post(
-      `${API_URL}/api/payments/checkout`,
-      {
-        plan_id: plan.id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await axios.post(
+        `${API_URL}/api/payments/checkout`,
+        {
+          plan_id: plan.id,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log("Payment successful", response.data);
       navigate("/dashboard");
     } catch (error) {
       console.error("Payment failed:", error);
 
-      navigate("/login");
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        navigate("/login");
+      } else {
+        alert("Payment failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
