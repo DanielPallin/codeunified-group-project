@@ -35,7 +35,7 @@ export const getLessonsByCourse = async (req: Request, res: Response): Promise<a
 
     if (userAccessLevel < minAccessLevel) {
       return res.status(403).json({
-        message: "You need to upgrade your subscription to access these lessons.",
+        message: "You need to upgrade your subscription to access this course.",
         requiredLevel: minAccessLevel,
         currentLevel: userAccessLevel
       });

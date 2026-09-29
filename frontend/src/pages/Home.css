@@ -284,6 +284,11 @@
     width: 100%;
   }
 
+    .view-plans-button {
+    width: 100%;
+    align-self: center;
+  }
+
   .home-features {
     padding: 4rem 1.5rem;
   }

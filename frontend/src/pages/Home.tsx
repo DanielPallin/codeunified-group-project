@@ -106,7 +106,7 @@ const Home = () => {
           </p>
         </div>
 
-        <Link to="/pricing" className="home-button home-button-primary">
+        <Link to="/pricing" className="home-button home-button-primary view-plans-button">
           View plans
         </Link>
       </section>

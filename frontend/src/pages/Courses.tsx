@@ -66,7 +66,7 @@ const Courses = () => {
           Please <Link to="/login">log in</Link> to access your courses.
         </p>
       )}
-      <section>
+      <section className="courses-section">
         <h3 className="courses-section-title">Basic</h3>
 
         {courses
@@ -76,7 +76,7 @@ const Courses = () => {
           ))}
       </section>
 
-      <section>
+      <section className="courses-section">
         <h3 className="courses-section-title">Plus</h3>
 
         {courses
@@ -86,7 +86,7 @@ const Courses = () => {
           ))}
       </section>
 
-      <section>
+      <section className="courses-section">
         <h3 className="courses-section-title">Pro</h3>
 
         {courses

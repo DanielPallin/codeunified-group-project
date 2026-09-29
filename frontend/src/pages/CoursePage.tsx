@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import type { Course } from "../types/course";
 import type { Lesson } from "../types/lesson";
 import "./CoursePage.css";
 import LessonCard from "../components/LessonCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackButton from "../components/BackButton";
 
 const CoursePage = () => {
   const { slug } = useParams();
@@ -15,6 +16,7 @@ const CoursePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showLoader, setShowLoader] = useState(false);
+  const [errorStatus, setErrorStatus] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,6 +55,8 @@ const CoursePage = () => {
         console.error(error);
 
         if (axios.isAxiosError(error)) {
+          setErrorStatus(error.response?.status ?? null);
+
           setError(error.response?.data?.message || "Failed to fetch course");
         } else {
           setError("Failed to fetch course");
@@ -81,7 +85,13 @@ const CoursePage = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <div className="course-page">
+        <p>{error}</p>
+
+        {errorStatus === 403 && <Link to="/pricing">Upgrade your plan</Link>}
+      </div>
+    );
   }
 
   if (!course) {
@@ -90,9 +100,7 @@ const CoursePage = () => {
 
   return (
     <div className="course-page">
-      <button className="back-button" onClick={() => navigate(-1)}>
-        ← Back to Courses
-      </button>
+     <BackButton text="Back to Courses" />
       <h1 className="course-page-title">{course.name}</h1>
       <p>{course.description}</p>
 

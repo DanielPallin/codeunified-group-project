@@ -22,3 +22,10 @@
   padding-bottom: 1rem;
   color: var(--text-secondary);
 }
+
+@media (max-width: 760px) {
+  .course-card {
+    width: 400px;
+    text-align: center;
+  }
+}

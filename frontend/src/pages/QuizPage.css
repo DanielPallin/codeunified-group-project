@@ -2,6 +2,7 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
+  min-height: 100vh;
 }
 
 .quiz-title {

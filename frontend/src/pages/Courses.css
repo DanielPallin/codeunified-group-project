@@ -4,17 +4,21 @@
   align-items: center;
   padding: 1rem;
   min-height: 100vh;
-  margin-top: 2rem;
 }
 
 .courses-page-title {
-  margin-top: 5rem;
+  margin-top: 3rem;
   color: var(--text-primary);
   font-weight: 600;
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
 }
 
 .courses-section-title {
   color: var(--accent);
+}
+
+.courses-section:last-child {
+  padding-bottom: 5rem;
 }
 
 .loader-container {
@@ -44,4 +48,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@media (max-width: 760px) {
+  .courses-page { padding-top:0px }
 }
