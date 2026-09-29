@@ -16,22 +16,25 @@ const PlanCard = ({ plan, activePlanId }: PlanCardProps) => {
   const isActivePlan = plan.id === activePlanId;
 
   const handleCheckout = async () => {
-    const token = localStorage.getItem("token");
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/payments/checkout",
+  const token = localStorage.getItem("token");
+  setLoading(true);
 
-        {
-          plan_id: plan.id,
-        },
+  const API_URL = import.meta.env.PROD 
+    ? "https://codeunified-group-project.onrender.com/api/payments/checkout" 
+    : "http://localhost:3000";
 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+  try {
+    const response = await axios.post(
+      `${API_URL}/api/payments/checkout`,
+      {
+        plan_id: plan.id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      }
+    );
 
       console.log("Payment successful", response.data);
       navigate("/dashboard");
