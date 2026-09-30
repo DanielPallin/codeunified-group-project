@@ -71,7 +71,7 @@ const Pricing = () => {
   }
 
   return (
-    <div className="pricing-page">
+    <main className="pricing-page">
       <section className="pricing-content" aria-labelledby="pricing-title">
         <header className="pricing-intro">
           <h1 id="pricing-title" className="pricing-page-title">
@@ -94,7 +94,7 @@ const Pricing = () => {
           </div>
         )}
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -62,7 +62,7 @@ const Courses = () => {
   }
 
   return (
-    <div className="courses-page">
+    <main className="courses-page">
       <h1 className="courses-page-title">Choose Your Course</h1>
       {error && <p>{error}</p>}
       {!isLoggedIn && (
@@ -99,7 +99,7 @@ const Courses = () => {
             <CourseCard key={course.id} course={course} />
           ))}
       </section>
-    </div>
+    </main>
   );
 };
 

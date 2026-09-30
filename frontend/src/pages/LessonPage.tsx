@@ -76,7 +76,7 @@ const LessonPage = () => {
   }
 
   return (
-    <div className="lesson-page">
+    <main className="lesson-page">
     <BackButton text="Back to Lessons" />
 
       <div className="lesson-content">
@@ -91,7 +91,7 @@ const LessonPage = () => {
           title={lesson.title}
         />
       )}
-    </div>
+    </main>
   );
 };
 

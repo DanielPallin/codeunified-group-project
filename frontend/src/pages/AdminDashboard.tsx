@@ -206,7 +206,7 @@ export const AdminDashboard = () => {
     };
 
     return (
-        <div style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+        <main style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
             <h1>Admin Control Panel</h1>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '40px' }}>
@@ -354,6 +354,6 @@ export const AdminDashboard = () => {
                     </table>
                 </section>
             </div>
-        </div>
+        </main>
     );
 };

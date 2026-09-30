@@ -86,7 +86,7 @@ export default function Dashboard() {
     const closeDrawer = () => setActiveDrawer('none');
 
     return (
-        <div className="dashboard-container">
+        <main className="dashboard-container">
             <h1>My Dashboard</h1>
 
             <section className="dashboard-section">
@@ -176,6 +176,6 @@ export default function Dashboard() {
                     </div>
                 )}
             </div>
-        </div>
+        </main>
     );
 }
