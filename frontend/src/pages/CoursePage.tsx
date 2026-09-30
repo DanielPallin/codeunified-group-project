@@ -91,9 +91,23 @@ const CoursePage = () => {
   if (error) {
     return (
       <div className="course-page">
-        <p>{error}</p>
+        {errorStatus === 403 && (
+          <>
+            <p>You need to upgrade your subscription to access this course.</p>
 
-        {errorStatus === 403 && <Link to="/pricing">Upgrade your plan</Link>}
+            <Link to="/pricing">Upgrade your plan</Link>
+          </>
+        )}
+
+        {errorStatus === 401 && (
+          <>
+            <p>Your session has expired. Please log in again.</p>
+
+            <Link to="/login">Log in</Link>
+          </>
+        )}
+
+        {errorStatus !== 401 && errorStatus !== 403 && <p>{error}</p>}
       </div>
     );
   }
@@ -104,7 +118,7 @@ const CoursePage = () => {
 
   return (
     <div className="course-page">
-     <BackButton text="Back to Courses" />
+      <BackButton text="Back to Courses" />
       <h1 className="course-page-title">{course.name}</h1>
       <p>{course.description}</p>
 
