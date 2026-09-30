@@ -10,7 +10,7 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import lessonRoutes from "./routes/courseRoutes.js";
+import lessonRoutes from "./routes/lessonRoutes.js";
 
 const app = express();
 const port = 3000;
