@@ -114,7 +114,7 @@ const QuizPage = () => {
   const allQuestionsAnswered =
     quiz.questions.length === Object.keys(selectedAnswers).length;
   return (
-    <div className="quiz-page">
+    <main className="quiz-page">
       <BackButton text="Back to Course" />
       <h1 className="quiz-title">{quiz.quiz_title}</h1>
 
@@ -169,7 +169,7 @@ const QuizPage = () => {
           <p>{result.passed ? "Passed!" : "Not passed"}</p>
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

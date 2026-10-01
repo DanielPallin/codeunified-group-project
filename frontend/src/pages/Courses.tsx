@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import type { Course } from "../types/course";
-import CourseCard from "../components/CourseCard";
 import "./Courses.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import CourseList from "../components/CourseList";
 
 const Courses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -24,9 +24,9 @@ const Courses = () => {
         setLoading(true);
         setError(null);
 
-        const API_URL = import.meta.env.PROD 
-            ? 'https://codeunified-group-project.onrender.com' 
-            : 'http://localhost:3000';
+        const API_URL = import.meta.env.PROD
+          ? "https://codeunified-group-project.onrender.com"
+          : "http://localhost:3000";
 
         const response = await axios.get(`${API_URL}/api/courses`);
 
@@ -62,7 +62,7 @@ const Courses = () => {
   }
 
   return (
-    <div className="courses-page">
+    <main className="courses-page">
       <h1 className="courses-page-title">Choose Your Course</h1>
       {error && <p>{error}</p>}
       {!isLoggedIn && (
@@ -72,34 +72,25 @@ const Courses = () => {
       )}
       <section className="courses-section">
         <h3 className="courses-section-title">Basic</h3>
-
-        {courses
-          .filter((course) => course.min_access_level === 1)
-          .map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
+        <CourseList
+          courses={courses.filter((course) => course.min_access_level === 1)}
+        />
       </section>
 
       <section className="courses-section">
         <h3 className="courses-section-title">Plus</h3>
-
-        {courses
-          .filter((course) => course.min_access_level === 2)
-          .map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
+        <CourseList
+          courses={courses.filter((course) => course.min_access_level === 2)}
+        />
       </section>
 
       <section className="courses-section">
         <h3 className="courses-section-title">Pro</h3>
-
-        {courses
-          .filter((course) => course.min_access_level === 3)
-          .map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
+        <CourseList
+          courses={courses.filter((course) => course.min_access_level === 3)}
+        />
       </section>
-    </div>
+    </main>
   );
 };
 

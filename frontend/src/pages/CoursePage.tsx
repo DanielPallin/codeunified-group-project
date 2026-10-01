@@ -3,13 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import type { Course } from "../types/course";
 import type { Lesson } from "../types/lesson";
 import "./CoursePage.css";
-import LessonCard from "../components/LessonCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackButton from "../components/BackButton";
+import QuizButton from "../components/QuizButton";
+import LessonList from "../components/LessonList";
 
 const CoursePage = () => {
-  const { slug } = useParams();
+  const { courseSlug } = useParams();
   const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -35,22 +36,22 @@ const CoursePage = () => {
           return;
         }
 
-        const API_URL = import.meta.env.PROD 
-            ? 'https://codeunified-group-project.onrender.com' 
-            : 'http://localhost:3000';
+        const API_URL = import.meta.env.PROD
+          ? "https://codeunified-group-project.onrender.com"
+          : "http://localhost:3000";
 
         const [lessonsResponse, courseResponse] = await Promise.all([
-            axios.get(`${API_URL}/api/courses/${slug}/lessons`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }),
+          axios.get(`${API_URL}/api/courses/${courseSlug}/lessons`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
 
-            axios.get(`${API_URL}/api/courses/${slug}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }),
+          axios.get(`${API_URL}/api/courses/${courseSlug}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
         ]);
 
         setLessons(lessonsResponse.data);
@@ -74,7 +75,7 @@ const CoursePage = () => {
     fetchCourseWithLessons();
 
     return () => clearTimeout(timer);
-  }, [slug, navigate]);
+  }, [courseSlug, navigate]);
 
   if (loading) {
     return (
@@ -91,9 +92,23 @@ const CoursePage = () => {
   if (error) {
     return (
       <div className="course-page">
-        <p>{error}</p>
+        {errorStatus === 403 && (
+          <>
+            <p>You need to upgrade your subscription to access this course.</p>
 
-        {errorStatus === 403 && <Link to="/pricing">Upgrade your plan</Link>}
+            <Link to="/pricing">Upgrade your plan</Link>
+          </>
+        )}
+
+        {errorStatus === 401 && (
+          <>
+            <p>Your session has expired. Please log in again.</p>
+
+            <Link to="/login">Log in</Link>
+          </>
+        )}
+
+        {errorStatus !== 401 && errorStatus !== 403 && <p>{error}</p>}
       </div>
     );
   }
@@ -103,24 +118,17 @@ const CoursePage = () => {
   }
 
   return (
-    <div className="course-page">
-     <BackButton text="Back to Courses" />
+    <main className="course-page">
+      <BackButton text="Back to Courses" />
+
       <h1 className="course-page-title">{course.name}</h1>
       <p>{course.description}</p>
 
       <h2>Lessons</h2>
+      <LessonList lessons={lessons} />
 
-      {lessons.map((lesson) => (
-        <LessonCard key={lesson.id} lesson={lesson} />
-      ))}
-
-      <button
-        className="quiz-button"
-        onClick={() => navigate(`/courses/${course.slug}/quiz`)}
-      >
-        Take Quiz
-      </button>
-    </div>
+      <QuizButton course={course} />
+    </main>
   );
 };
 

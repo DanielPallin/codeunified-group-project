@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getPlans } from "../controllers/planController.js";
+import { getPlans, getPlanById } from "../controllers/planController.js";
 
 const router = Router();
 
 router.get("/", getPlans);
+router.get("/:planId", getPlanById);
 
 export default router;

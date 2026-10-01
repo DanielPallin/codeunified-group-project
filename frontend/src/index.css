@@ -37,3 +37,6 @@ a {
   text-decoration: none;
 }
 
+html {
+  scrollbar-gutter: stable;
+}

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Plan } from "../types/plan.js";
-import PlanCard from "../components/PlanCard.js";
 import "./Pricing.css";
 import axios from "axios";
+import PlanList from "../components/PlanList.js";
 
 const Pricing = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -71,7 +71,7 @@ const Pricing = () => {
   }
 
   return (
-    <div className="pricing-page">
+    <main className="pricing-page">
       <section className="pricing-content" aria-labelledby="pricing-title">
         <header className="pricing-intro">
           <h1 id="pricing-title" className="pricing-page-title">
@@ -83,18 +83,10 @@ const Pricing = () => {
         {error ? (
           <p className="pricing-error">{error}</p>
         ) : (
-          <div className="pricing-plans">
-            {plans.map((plan) => (
-              <PlanCard
-                key={plan.id}
-                plan={plan}
-                activePlanId={activePlanId}
-              />
-            ))}
-          </div>
+          <PlanList plans={plans} activePlanId={activePlanId} />
         )}
       </section>
-    </div>
+    </main>
   );
 };
 
