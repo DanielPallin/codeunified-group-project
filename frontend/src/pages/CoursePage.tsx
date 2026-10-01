@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import type { Course } from "../types/course";
 import type { Lesson } from "../types/lesson";
 import "./CoursePage.css";
-import LessonCard from "../components/LessonCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackButton from "../components/BackButton";
 import QuizButton from "../components/QuizButton";
+import LessonList from "../components/LessonList";
 
 const CoursePage = () => {
   const { courseSlug } = useParams();
@@ -120,14 +120,13 @@ const CoursePage = () => {
   return (
     <div className="course-page">
       <BackButton text="Back to Courses" />
+
       <h1 className="course-page-title">{course.name}</h1>
       <p>{course.description}</p>
 
       <h2>Lessons</h2>
+      <LessonList lessons={lessons} />
 
-      {lessons.map((lesson) => (
-        <LessonCard key={lesson.id} lesson={lesson} />
-      ))}
       <QuizButton course={course} />
     </div>
   );
