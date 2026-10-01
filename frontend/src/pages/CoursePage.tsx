@@ -10,7 +10,7 @@ import BackButton from "../components/BackButton";
 import QuizButton from "../components/QuizButton";
 
 const CoursePage = () => {
-  const { slug } = useParams();
+  const { courseSlug } = useParams();
   const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -41,13 +41,13 @@ const CoursePage = () => {
           : "http://localhost:3000";
 
         const [lessonsResponse, courseResponse] = await Promise.all([
-          axios.get(`${API_URL}/api/courses/${slug}/lessons`, {
+          axios.get(`${API_URL}/api/courses/${courseSlug}/lessons`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }),
 
-          axios.get(`${API_URL}/api/courses/${slug}`, {
+          axios.get(`${API_URL}/api/courses/${courseSlug}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -75,7 +75,7 @@ const CoursePage = () => {
     fetchCourseWithLessons();
 
     return () => clearTimeout(timer);
-  }, [slug, navigate]);
+  }, [courseSlug, navigate]);
 
   if (loading) {
     return (
