@@ -37,6 +37,9 @@
   background-color: var(--card-bg);
   padding: 1rem;
   border-radius: 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
 
 .lesson-content code {

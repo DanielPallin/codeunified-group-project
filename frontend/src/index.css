@@ -12,6 +12,10 @@
   --text-muted: #737988;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
