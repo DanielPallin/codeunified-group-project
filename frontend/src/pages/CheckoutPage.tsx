@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./CheckoutPage.css";
 import type { Plan } from "../types/plan.js";
+import BackButton from "../components/BackButton.js";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -133,6 +134,7 @@ const CheckoutPage = () => {
 
   return (
     <main className="checkout-page">
+      <BackButton text="Back to Plans" />
       {plan && (
         <>
           <h1 className="selected-plan-title">Chosen Plan: <span className="selected-plan-name"> {plan.name}</span></h1>
@@ -164,7 +166,7 @@ const CheckoutPage = () => {
         <input id="name-on-card" type="text" placeholder="Your name" />
       </label>
 
-      <button onClick={handleCheckout} disabled={loading}>
+      <button className="checkout-button" onClick={handleCheckout} disabled={loading}>
         {loading ? "Processing..." : "Complete payment"}
       </button>
     </main>
