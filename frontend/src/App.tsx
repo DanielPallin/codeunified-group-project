@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import QuizPage from "./pages/QuizPage";
 import ScrollToTop from "./components/ScrollToTop";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/checkout/:planId" element={<CheckoutPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:courseSlug" element={<CoursePage />} />

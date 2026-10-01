@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import type { Plan } from "../types/plan.js";
 import "./PlanCard.css";
-import axios from "axios";
 
 interface PlanCardProps {
   plan: Plan;
@@ -11,44 +9,11 @@ interface PlanCardProps {
 
 const PlanCard = ({ plan, activePlanId }: PlanCardProps) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const isActivePlan = plan.id === activePlanId;
 
-  const handleCheckout = async () => {
-    const token = localStorage.getItem("token");
-    setLoading(true);
-
-    const API_URL = import.meta.env.PROD 
-      ? "https://codeunified-group-project.onrender.com" 
-      : "http://localhost:3000";
-
-    try {
-      const response = await axios.post(
-        `${API_URL}/api/payments/checkout`,
-        {
-          plan_id: plan.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log("Payment successful", response.data);
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Payment failed:", error);
-
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        navigate("/login");
-      } else {
-        alert("Payment failed. Please try again.");
-      }
-    } finally {
-      setLoading(false);
-    }
+  const handlePlanSelect = () => {
+    navigate(`/checkout/${plan.id}`);
   };
 
   return (
@@ -63,20 +28,20 @@ const PlanCard = ({ plan, activePlanId }: PlanCardProps) => {
           .split(/\r?\n|,|;/)
           .map((feature) => feature.trim())
           .filter(Boolean)
-          .map((feature) => <li key={feature}>{feature}</li>)}
+          .map((feature) => (
+            <li key={feature}>{feature}</li>
+          ))}
       </ul>
       <button
-        onClick={handleCheckout}
-        disabled={loading || isActivePlan}
+        onClick={handlePlanSelect}
+        disabled={isActivePlan}
         className={isActivePlan ? "current-plan-button" : ""}
       >
         {isActivePlan
           ? "Currently Active"
-          : loading
-            ? "Processing..."
-            : plan.price === 0
-              ? "Get Started Free"
-              : `Choose ${plan.name}`}
+          : plan.price === 0
+            ? "Get Started Free"
+            : `Choose ${plan.name}`}
       </button>
     </article>
   );
