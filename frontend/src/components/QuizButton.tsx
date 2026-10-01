@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Course } from "../types/course";
+import "./QuizButton.css";
 
 const QuizButton = ({ course }: { course: Course }) => {
 const navigate = useNavigate();
