@@ -64,6 +64,8 @@ label .checkout-page input:focus {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  color: var(--bg-primary);
+  -webkit-text-fill-color: var(--bg-primary);
 }
 
 .checkout-button:hover:not(:disabled) {
@@ -100,7 +102,7 @@ label .checkout-page input:focus {
 }
 
 @media (max-width: 600px) {
- .checkout-page {
+  .checkout-page {
     min-height: 64vh;
   }
 }
