@@ -6,7 +6,7 @@
   border: 2px solid var(--card-border);
   border-radius: 8px;
   background: var(--card-bg);
-  color: var(--text-secondary);
+  color: var(--text-primary);
   box-sizing: border-box;
   transition:
     transform 0.2s ease,
@@ -30,7 +30,7 @@
 
 .plan-card-price {
   margin: 2rem 0 2.15rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: 1.45rem;
   font-weight: 600;
   line-height: 1.35;
@@ -46,7 +46,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: 1.35rem;
   font-weight: 600;
   line-height: 1.35;
