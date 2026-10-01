@@ -121,7 +121,7 @@ export const AdminDashboard = () => {
             }
         } catch (error) {
             setCourseStatus('A network error occurred.');
-            (console.error('Error creating course:', error));
+            console.error('Error creating course:', error);
         }
     };
 
@@ -206,37 +206,37 @@ export const AdminDashboard = () => {
     };
 
     return (
-        <main style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+        <main style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto', boxSizing: 'border-box' }}>
             <h1>Admin Control Panel</h1>
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '40px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
 
-                <section style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+                <section style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px', background: '#fff', color: '#333' }}>
                     <h2>1. Create Course</h2>
                     <form onSubmit={handleCreateCourse} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Course Title</label>
-                            <input type="text" value={courseTitle} onChange={(e) => setCourseTitle(e.target.value)} required style={{ width: '100%', padding: '8px' }} />
+                            <input type="text" value={courseTitle} onChange={(e) => setCourseTitle(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>URL Slug</label>
-                            <input type="text" value={courseSlug} onChange={(e) => setCourseSlug(e.target.value)} required style={{ width: '100%', padding: '8px' }} />
+                            <input type="text" value={courseSlug} onChange={(e) => setCourseSlug(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Description</label>
-                            <textarea value={courseDescription} onChange={(e) => setCourseDescription(e.target.value)} required rows={3} style={{ width: '100%', padding: '8px' }} />
+                            <textarea value={courseDescription} onChange={(e) => setCourseDescription(e.target.value)} required rows={3} style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', backgroundColor: '#fff', color: '#333' }} />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Required Access Level (1-3)</label>
-                            <input type="number" min="1" max="3" value={minAccessLevel} onChange={(e) => setMinAccessLevel(Number(e.target.value))} required style={{ width: '100%', padding: '8px' }} />
+                            <input type="number" min="1" max="3" value={minAccessLevel} onChange={(e) => setMinAccessLevel(Number(e.target.value))} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} />
                         </div>
-                        <div>1=Basic 2=Plus 3=Pro</div>
-                        <button type="submit" style={{ padding: '10px', backgroundColor: '#333', color: 'white', border: 'none', cursor: 'pointer' }}>Publish Course</button>
+                        <div style={{ fontSize: '0.9rem', color: '#666' }}>1=Basic 2=Plus 3=Pro</div>
+                        <button type="submit" style={{ padding: '10px', backgroundColor: '#333', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>Publish Course</button>
                     </form>
                     {courseStatus && <div style={{ marginTop: '15px', padding: '10px', backgroundColor: '#eef2f5', borderRadius: '4px' }}><strong>{courseStatus}</strong></div>}
                 </section>
 
-                <section style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+                <section style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px', background: '#fff', color: '#333' }}>
                     <h2>2. Add Lesson</h2>
                     <form onSubmit={handleCreateLesson} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                         <div>
@@ -245,7 +245,7 @@ export const AdminDashboard = () => {
                                 value={lessonCourseId} 
                                 onChange={(e) => setLessonCourseId(e.target.value)} 
                                 required 
-                                style={{ width: '100%', padding: '8px' }}
+                                style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }}
                             >
                                 <option value="" disabled>-- Choose a course --</option>
                                 {coursesList.map(c => (
@@ -255,15 +255,15 @@ export const AdminDashboard = () => {
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Lesson Title</label>
-                            <input type="text" value={lessonTitle} onChange={(e) => setLessonTitle(e.target.value)} required style={{ width: '100%', padding: '8px' }} />
+                            <input type="text" value={lessonTitle} onChange={(e) => setLessonTitle(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>URL Slug</label>
-                            <input type="text" value={lessonSlug} onChange={(e) => setLessonSlug(e.target.value)} required style={{ width: '100%', padding: '8px' }} />
+                            <input type="text" value={lessonSlug} onChange={(e) => setLessonSlug(e.target.value)} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Content Body</label>
-                            <textarea value={lessonContent} onChange={(e) => setLessonContent(e.target.value)} required rows={3} style={{ width: '100%', padding: '8px' }} />
+                            <textarea value={lessonContent} onChange={(e) => setLessonContent(e.target.value)} required rows={3} style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical', backgroundColor: '#fff', color: '#333' }} />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Media URL (Video/Image Link - Optional)</label>
@@ -272,14 +272,14 @@ export const AdminDashboard = () => {
                                 value={lessonMediaUrl} 
                                 onChange={(e) => setLessonMediaUrl(e.target.value)} 
                                 placeholder="https://..."
-                                style={{ width: '100%', padding: '8px' }} 
+                                style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} 
                             />
                         </div>
                         <div>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Sequence Order</label>
-                            <input type="number" min="1" value={lessonSequence} onChange={(e) => setLessonSequence(Number(e.target.value))} required style={{ width: '100%', padding: '8px' }} />
+                            <input type="number" min="1" value={lessonSequence} onChange={(e) => setLessonSequence(Number(e.target.value))} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff', color: '#333' }} />
                         </div>
-                        <button type="submit" style={{ padding: '10px', backgroundColor: '#0056b3', color: 'white', border: 'none', cursor: 'pointer' }}>Publish Lesson</button>
+                        <button type="submit" style={{ padding: '10px', backgroundColor: '#0056b3', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}>Publish Lesson</button>
                     </form>
                     {lessonStatus && <div style={{ marginTop: '15px', padding: '10px', backgroundColor: '#eef2f5', borderRadius: '4px' }}><strong>{lessonStatus}</strong></div>}
                 </section>
@@ -288,70 +288,74 @@ export const AdminDashboard = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
                 <section>
                     <h2>Existing Courses</h2>
-                    <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse', border: '1px solid #ccc' }}>
-                        <thead style={{ backgroundColor: '#f5f5f5' }}>
-                            <tr>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Title</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Slug</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Level</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Status</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc', textAlign: 'center' }}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {coursesList.map(course => (
-                                <tr key={course.course_id}>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{course.course_title}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{course.course_slug}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{course.min_access_level}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{course.status}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee', textAlign: 'center' }}>
-                                    <button 
-                                        onClick={() => handleDeleteCourse(course.course_id)}
-                                        style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}
-                                        title="Delete Course"
-                                    >
-                                        🗑️
-                                    </button>
-                                    </td>
+                    <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid #ccc' }}>
+                        <table style={{ width: '100%', minWidth: '600px', textAlign: 'left', borderCollapse: 'collapse', backgroundColor: '#fff', color: '#333' }}>
+                            <thead style={{ backgroundColor: '#f5f5f5' }}>
+                                <tr>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Title</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Slug</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Level</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Status</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', textAlign: 'center', color: '#333' }}>Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {coursesList.map(course => (
+                                    <tr key={course.course_id} style={{ borderBottom: '1px solid #eee' }}>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{course.course_title}</td>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{course.course_slug}</td>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{course.min_access_level}</td>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{course.status}</td>
+                                        <td style={{ padding: '12px 15px', textAlign: 'center' }}>
+                                        <button 
+                                            onClick={() => handleDeleteCourse(course.course_id)}
+                                            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem', padding: '5px' }}
+                                            title="Delete Course"
+                                        >
+                                            🗑️
+                                        </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
 
                 <section>
                     <h2>Existing Lessons</h2>
-                    <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse', border: '1px solid #ccc' }}>
-                        <thead style={{ backgroundColor: '#f5f5f5' }}>
-                            <tr>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Course</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Order</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Lesson Title</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>Status</th>
-                                <th style={{ padding: '10px', borderBottom: '1px solid #ccc', textAlign: 'center' }}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {lessonsList.map(lesson => (
-                                <tr key={lesson.lesson_id}>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{lesson.course_title}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{lesson.sequence_order}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{lesson.lesson_title}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee' }}>{lesson.status}</td>
-                                    <td style={{ padding: '10px', borderBottom: '1px solid #eee', textAlign: 'center' }}>
-                                        <button 
-                                            onClick={() => handleDeleteLesson(lesson.lesson_id)}
-                                            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}
-                                            title="Delete Lesson"
-                                        >
-                                        🗑️
-                                        </button>
-                                    </td>
+                    <div style={{ overflowX: 'auto', borderRadius: '8px', border: '1px solid #ccc' }}>
+                        <table style={{ width: '100%', minWidth: '600px', textAlign: 'left', borderCollapse: 'collapse', backgroundColor: '#fff', color: '#333' }}>
+                            <thead style={{ backgroundColor: '#f5f5f5' }}>
+                                <tr>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Course</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Order</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Lesson Title</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', color: '#333' }}>Status</th>
+                                    <th style={{ padding: '12px 15px', borderBottom: '2px solid #ddd', textAlign: 'center', color: '#333' }}>Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {lessonsList.map(lesson => (
+                                    <tr key={lesson.lesson_id} style={{ borderBottom: '1px solid #eee' }}>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{lesson.course_title}</td>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{lesson.sequence_order}</td>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{lesson.lesson_title}</td>
+                                        <td style={{ padding: '12px 15px', color: '#333' }}>{lesson.status}</td>
+                                        <td style={{ padding: '12px 15px', textAlign: 'center' }}>
+                                            <button 
+                                                onClick={() => handleDeleteLesson(lesson.lesson_id)}
+                                                style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem', padding: '5px' }}
+                                                title="Delete Lesson"
+                                            >
+                                            🗑️
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </main>
