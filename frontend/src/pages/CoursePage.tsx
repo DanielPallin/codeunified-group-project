@@ -7,6 +7,7 @@ import LessonCard from "../components/LessonCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackButton from "../components/BackButton";
+import QuizButton from "../components/QuizButton";
 
 const CoursePage = () => {
   const { slug } = useParams();
@@ -35,22 +36,22 @@ const CoursePage = () => {
           return;
         }
 
-        const API_URL = import.meta.env.PROD 
-            ? 'https://codeunified-group-project.onrender.com' 
-            : 'http://localhost:3000';
+        const API_URL = import.meta.env.PROD
+          ? "https://codeunified-group-project.onrender.com"
+          : "http://localhost:3000";
 
         const [lessonsResponse, courseResponse] = await Promise.all([
-            axios.get(`${API_URL}/api/courses/${slug}/lessons`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }),
+          axios.get(`${API_URL}/api/courses/${slug}/lessons`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
 
-            axios.get(`${API_URL}/api/courses/${slug}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }),
+          axios.get(`${API_URL}/api/courses/${slug}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
         ]);
 
         setLessons(lessonsResponse.data);
@@ -127,13 +128,7 @@ const CoursePage = () => {
       {lessons.map((lesson) => (
         <LessonCard key={lesson.id} lesson={lesson} />
       ))}
-
-      <button
-        className="quiz-button"
-        onClick={() => navigate(`/courses/${course.slug}/quiz`)}
-      >
-        Take Quiz
-      </button>
+      <QuizButton course={course} />
     </div>
   );
 };
