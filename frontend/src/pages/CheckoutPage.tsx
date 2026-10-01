@@ -18,7 +18,7 @@ const CheckoutPage = () => {
       setShowLoader(true);
     }, 500);
 
-    const fetchPlan = async () => {
+    const fetchPlanById = async () => {
       try {
         setLoading(true);
         setError(null);
@@ -54,7 +54,7 @@ const CheckoutPage = () => {
     };
 
     if (planId) {
-      fetchPlan();
+      fetchPlanById();
     }
 
     return () => clearTimeout(timer);
@@ -133,15 +133,13 @@ const CheckoutPage = () => {
 
   return (
     <main className="checkout-page">
-      <h1>Checkout</h1>
-
       {plan && (
         <>
-          <h2 className="plan-card-title">Chosen Plan: {plan.name}</h2>
+          <h1 className="selected-plan-title">Chosen Plan: <span className="selected-plan-name"> {plan.name}</span></h1>
 
-          <p className="plan-card-price">
+          <p className="selected-plan-price">
             {plan.price} {plan.currency}
-            <span>/ {plan.billing_interval}</span>
+            <span className="selected-plan-billing-interval"> / {plan.billing_interval}</span>
           </p>
         </>
       )}
