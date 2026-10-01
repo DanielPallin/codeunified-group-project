@@ -118,7 +118,7 @@ const CoursePage = () => {
   }
 
   return (
-    <div className="course-page">
+    <main className="course-page">
       <BackButton text="Back to Courses" />
 
       <h1 className="course-page-title">{course.name}</h1>
@@ -128,7 +128,7 @@ const CoursePage = () => {
       <LessonList lessons={lessons} />
 
       <QuizButton course={course} />
-    </div>
+    </main>
   );
 };
 
