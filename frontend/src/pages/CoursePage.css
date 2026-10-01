@@ -29,3 +29,9 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 600px) {
+ .course-page {
+    min-height: 70vh;
+  }
+}
