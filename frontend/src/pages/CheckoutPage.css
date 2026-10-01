@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 1rem;
+  padding: 1rem;
   min-height: 100vh;
 }
 
@@ -54,7 +54,7 @@ label .checkout-page input:focus {
   outline-offset: 1px;
 }
 
-.checkout-page button {
+.checkout-button {
   width: min(100%, 600px);
   padding: 0.8rem 1rem;
   margin-top: 0.5rem;
@@ -66,11 +66,11 @@ label .checkout-page input:focus {
   cursor: pointer;
 }
 
-.checkout-page button:hover:not(:disabled) {
+.checkout-button:hover:not(:disabled) {
   opacity: 0.9;
 }
 
-.checkout-page button:disabled {
+.checkout-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -100,7 +100,7 @@ label .checkout-page input:focus {
 }
 
 @media (max-width: 600px) {
-  .checkout-page {
-    padding: 2rem 1rem;
+ .checkout-page {
+    min-height: 64vh;
   }
 }
