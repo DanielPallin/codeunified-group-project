@@ -129,6 +129,19 @@ export const submitQuiz = async (req: Request, res: Response) => {
       });
     }
 
+    const subscriptionResult = await pool.query(
+      `SELECT p.access_level
+   FROM subscriptions s
+   JOIN plans p ON s.plan_id = p.plan_id
+   WHERE s.user_id = $1
+   AND s.status = 'active'`,
+      [userId],
+    );
+
+    const accessLevel = subscriptionResult.rows[0]?.access_level ?? 0;
+
+    const questionLimit = accessLevel >= 3 ? 15 : accessLevel >= 2 ? 10 : 5;
+
     const result = await pool.query(
       `SELECT
         qq.quiz_question_id,
@@ -141,8 +154,10 @@ export const submitQuiz = async (req: Request, res: Response) => {
          ON qq.quiz_id = q.quiz_id
        JOIN quiz_options qo
          ON qo.quiz_question_id = qq.quiz_question_id
-       WHERE c.course_slug = $1`,
-      [courseSlug],
+       WHERE c.course_slug = $1
+       AND qq.sequence_order <= $2
+       ORDER BY qq.sequence_order ASC`,
+      [courseSlug, questionLimit],
     );
 
     if (result.rows.length === 0) {
