@@ -165,6 +165,7 @@ const QuizPage = () => {
           </p>
 
           <p>Score: {result.score_percentage}%</p>
+          <p>Score to Pass: 70%</p>
 
           <p>{result.passed ? "Passed!" : "Not passed"}</p>
         </div>
